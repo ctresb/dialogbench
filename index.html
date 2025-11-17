@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Diálogos - Father, Hear My Sins</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="toolbar">
+        <button id="saveBtn" class="toolbar-btn">
+            <span class="material-icons">save</span> Salvar JSON
+        </button>
+        <button id="loadBtn" class="toolbar-btn">
+            <span class="material-icons">folder_open</span> Carregar JSON
+        </button>
+        <input type="file" id="fileInput" accept=".json" style="display: none;">
+        <button id="newDialogBtn" class="toolbar-btn">
+            <span class="material-icons">add</span> Novo Diálogo
+        </button>
+        <div class="toolbar-divider"></div>
+        <button id="zoomInBtn" class="toolbar-btn">
+            <span class="material-icons">zoom_in</span>
+        </button>
+        <span id="zoomLevel" class="zoom-level">100%</span>
+        <button id="zoomOutBtn" class="toolbar-btn">
+            <span class="material-icons">zoom_out</span>
+        </button>
+        <button id="resetZoomBtn" class="toolbar-btn">
+            <span class="material-icons">center_focus_strong</span>
+        </button>
+        <div class="toolbar-info">
+            <span id="autoSaveIndicator"></span>
+        </div>
+    </div>
+
+    <div id="canvas" class="canvas">
+        <!-- Os blocos de diálogo serão adicionados aqui dinamicamente -->
+    </div>
+
+    <svg id="connectionsSvg" class="connections-svg">
+        <!-- As linhas de conexão serão desenhadas aqui -->
+    </svg>
+
+    <!-- Modal para adicionar Resposta -->
+    <div id="responseModal" class="modal">
+        <div class="modal-content">
+            <h3>Adicionar Resposta</h3>
+            <label>Texto da Resposta:</label>
+            <input type="text" id="responseText" placeholder="Digite o texto da resposta">
+            
+            <label>Cor:</label>
+            <input type="color" id="responseColor" value="#8B5A5A">
+            
+            <label>Conectar ao Bloco:</label>
+            <div class="autocomplete-wrapper">
+                <input type="text" id="responseTarget" placeholder="Digite para buscar..." autocomplete="off">
+                <div id="responseTargetList" class="autocomplete-list"></div>
+            </div>
+            
+            <div class="modal-buttons">
+                <button id="confirmResponse" class="btn-confirm">Confirmar</button>
+                <button id="cancelResponse" class="btn-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para adicionar Custom Value -->
+    <div id="customModal" class="modal">
+        <div class="modal-content">
+            <h3>Adicionar Custom Value</h3>
+            <label>Texto:</label>
+            <input type="text" id="customText" placeholder="Digite o texto">
+            
+            <label>Cor:</label>
+            <input type="color" id="customColor" value="#A07847">
+            
+            <div class="modal-buttons">
+                <button id="confirmCustom" class="btn-confirm">Confirmar</button>
+                <button id="cancelCustom" class="btn-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar Resposta -->
+    <div id="editResponseModal" class="modal">
+        <div class="modal-content">
+            <h3>Editar Resposta</h3>
+            <label>Texto da Resposta:</label>
+            <input type="text" id="editResponseText" placeholder="Digite o texto da resposta">
+            
+            <label>Cor:</label>
+            <input type="color" id="editResponseColor">
+            
+            <label>Conectar ao Bloco:</label>
+            <div class="autocomplete-wrapper">
+                <input type="text" id="editResponseTarget" placeholder="Digite para buscar..." autocomplete="off">
+                <div id="editResponseTargetList" class="autocomplete-list"></div>
+            </div>
+            
+            <div class="modal-buttons">
+                <button id="confirmEditResponse" class="btn-confirm">Confirmar</button>
+                <button id="cancelEditResponse" class="btn-cancel">Cancelar</button>
+                <button id="deleteResponse" class="btn-delete">
+                    <span class="material-icons">delete</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar Custom Value -->
+    <div id="editCustomModal" class="modal">
+        <div class="modal-content">
+            <h3>Editar Custom Value</h3>
+            <label>Texto:</label>
+            <input type="text" id="editCustomText" placeholder="Digite o texto">
+            
+            <label>Cor:</label>
+            <input type="color" id="editCustomColor">
+            
+            <div class="modal-buttons">
+                <button id="confirmEditCustom" class="btn-confirm">Confirmar</button>
+                <button id="cancelEditCustom" class="btn-cancel">Cancelar</button>
+                <button id="deleteCustom" class="btn-delete">
+                    <span class="material-icons">delete</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
