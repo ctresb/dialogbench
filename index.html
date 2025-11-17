@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editor de Diálogos - Father, Hear My Sins</title>
+    <title>Dialog Bench</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <div class="toolbar">
         <button id="saveBtn" class="toolbar-btn">
@@ -49,16 +57,16 @@
             <h3>Adicionar Resposta</h3>
             <label>Texto da Resposta:</label>
             <input type="text" id="responseText" placeholder="Digite o texto da resposta">
-            
+
             <label>Cor:</label>
             <input type="color" id="responseColor" value="#8B5A5A">
-            
+
             <label>Conectar ao Bloco:</label>
             <div class="autocomplete-wrapper">
                 <input type="text" id="responseTarget" placeholder="Digite para buscar..." autocomplete="off">
                 <div id="responseTargetList" class="autocomplete-list"></div>
             </div>
-            
+
             <div class="modal-buttons">
                 <button id="confirmResponse" class="btn-confirm">Confirmar</button>
                 <button id="cancelResponse" class="btn-cancel">Cancelar</button>
@@ -66,16 +74,42 @@
         </div>
     </div>
 
-    <!-- Modal para adicionar Custom Value -->
+    <!-- Modal para adicionar Variável -->
     <div id="customModal" class="modal">
         <div class="modal-content">
-            <h3>Adicionar Custom Value</h3>
-            <label>Texto:</label>
-            <input type="text" id="customText" placeholder="Digite o texto">
-            
+            <h3>Adicionar Variável</h3>
+
+            <label>Tipo de Variável:</label>
+            <div class="radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="variableType" value="chave" checked>
+                    <span>Chave (Sim/Não)</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="variableType" value="texto">
+                    <span>Texto</span>
+                </label>
+            </div>
+
+            <label>Nome da Variável:</label>
+            <input type="text" id="customVariableName" placeholder="Digite o nome da variável">
+
+            <div id="chaveInputs">
+                <label>Valor:</label>
+                <select id="customChaveValue">
+                    <option value="sim">Sim</option>
+                    <option value="não">Não</option>
+                </select>
+            </div>
+
+            <div id="textoInputs" style="display: none;">
+                <label>Valor:</label>
+                <input type="text" id="customTextoValue" placeholder="Digite o valor">
+            </div>
+
             <label>Cor:</label>
             <input type="color" id="customColor" value="#A07847">
-            
+
             <div class="modal-buttons">
                 <button id="confirmCustom" class="btn-confirm">Confirmar</button>
                 <button id="cancelCustom" class="btn-cancel">Cancelar</button>
@@ -89,16 +123,16 @@
             <h3>Editar Resposta</h3>
             <label>Texto da Resposta:</label>
             <input type="text" id="editResponseText" placeholder="Digite o texto da resposta">
-            
+
             <label>Cor:</label>
             <input type="color" id="editResponseColor">
-            
+
             <label>Conectar ao Bloco:</label>
             <div class="autocomplete-wrapper">
                 <input type="text" id="editResponseTarget" placeholder="Digite para buscar..." autocomplete="off">
                 <div id="editResponseTargetList" class="autocomplete-list"></div>
             </div>
-            
+
             <div class="modal-buttons">
                 <button id="confirmEditResponse" class="btn-confirm">Confirmar</button>
                 <button id="cancelEditResponse" class="btn-cancel">Cancelar</button>
@@ -109,16 +143,42 @@
         </div>
     </div>
 
-    <!-- Modal para editar Custom Value -->
+    <!-- Modal para editar Variável -->
     <div id="editCustomModal" class="modal">
         <div class="modal-content">
-            <h3>Editar Custom Value</h3>
-            <label>Texto:</label>
-            <input type="text" id="editCustomText" placeholder="Digite o texto">
-            
+            <h3>Editar Variável</h3>
+
+            <label>Tipo de Variável:</label>
+            <div class="radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="editVariableType" value="chave" checked>
+                    <span>Chave (Sim/Não)</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="editVariableType" value="texto">
+                    <span>Texto</span>
+                </label>
+            </div>
+
+            <label>Nome da Variável:</label>
+            <input type="text" id="editCustomVariableName" placeholder="Digite o nome da variável">
+
+            <div id="editChaveInputs">
+                <label>Valor:</label>
+                <select id="editCustomChaveValue">
+                    <option value="sim">Sim</option>
+                    <option value="não">Não</option>
+                </select>
+            </div>
+
+            <div id="editTextoInputs" style="display: none;">
+                <label>Valor:</label>
+                <input type="text" id="editCustomTextoValue" placeholder="Digite o valor">
+            </div>
+
             <label>Cor:</label>
             <input type="color" id="editCustomColor">
-            
+
             <div class="modal-buttons">
                 <button id="confirmEditCustom" class="btn-confirm">Confirmar</button>
                 <button id="cancelEditCustom" class="btn-cancel">Cancelar</button>
@@ -129,6 +189,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
+
 </html>
