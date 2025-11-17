@@ -19,6 +19,16 @@ export const state = {
         blockDragOffset: { x: 0, y: 0 }
     },
     
+    selection: {
+        isSelecting: false,
+        selectedBlocks: [],
+        selectionStart: { x: 0, y: 0 },
+        selectionEnd: { x: 0, y: 0 },
+        isDraggingSelection: false,
+        dragOffset: { x: 0, y: 0 },
+        initialPositions: {}
+    },
+    
     snapping: {
         enabled: true,
         gridSize: 20
@@ -65,6 +75,16 @@ export function getSnappingState() {
 export function toggleSnapping() {
     state.snapping.enabled = !state.snapping.enabled;
     return state.snapping.enabled;
+}
+
+export function getSelectionState() {
+    return state.selection;
+}
+
+export function clearSelection() {
+    state.selection.selectedBlocks = [];
+    state.selection.isSelecting = false;
+    state.selection.isDraggingSelection = false;
 }
 
 export function getEditingState() {

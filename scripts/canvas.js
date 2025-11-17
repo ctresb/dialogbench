@@ -3,11 +3,14 @@
  * Handles canvas dragging, zooming, and panning
  */
 
-import { state, getDialogData, getDraggingState, getSnappingState } from './state.js';
+import { state, getDialogData, getDraggingState, getSnappingState, getSelectionState, clearSelection } from './state.js';
 import { elements } from './dom.js';
 import { updateConnections } from './connections.js';
 import { autoSave } from './storage.js';
 import { renderBlock } from './blocks.js';
+
+// Selection box element
+let selectionBox = null;
 
 export function initCanvas() {
     const { canvas } = elements;
@@ -17,11 +20,18 @@ export function initCanvas() {
     gridBg.className = 'canvas-background';
     document.body.insertBefore(gridBg, canvas);
     
+    // Create selection box
+    selectionBox = document.createElement('div');
+    selectionBox.className = 'selection-box';
+    selectionBox.style.display = 'none';
+    document.body.appendChild(selectionBox);
+    
     // Setup event listeners - listen on document for canvas dragging to work everywhere
     document.addEventListener('mousedown', startCanvasDrag);
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', stopDrag);
     document.addEventListener('wheel', handleWheel, { passive: false });
+    document.addEventListener('keydown', handleKeyDown);
 }
 
 export function adjustZoom(delta) {
@@ -156,16 +166,54 @@ let momentumAnimationId = null;
 function startCanvasDrag(e) {
     const { canvas } = elements;
     const dragging = getDraggingState();
+    const selection = getSelectionState();
+    const dialogData = getDialogData();
     
     // Don't start canvas drag if clicking on dialog blocks, toolbar, or modal elements
-    if (e.target.closest('.dialog-block') || 
-        e.target.closest('.toolbar') ||
+    if (e.target.closest('.toolbar') ||
         e.target.closest('.modal') ||
         e.target.closest('button') ||
         e.target.closest('input') ||
         e.target.closest('textarea') ||
         e.target.closest('select')) {
         return;
+    }
+    
+    // Check if clicking on a selected block to drag selection
+    const clickedBlock = e.target.closest('.dialog-block');
+    if (clickedBlock && selection.selectedBlocks.length > 0) {
+        const blockId = parseInt(clickedBlock.id.replace('block-', ''));
+        if (selection.selectedBlocks.includes(blockId)) {
+            selection.isDraggingSelection = true;
+            selection.dragOffset = { x: e.clientX, y: e.clientY };
+            return;
+        }
+    }
+    
+    // If clicking on a block that's not selected, let block drag handle it
+    if (clickedBlock) {
+        return;
+    }
+    
+    // Start selection if Shift is held
+    if (e.shiftKey && e.clientY > 60) {
+        clearSelection();
+        updateSelectedBlocksVisual();
+        
+        selection.isSelecting = true;
+        selection.selectionStart = { x: e.clientX, y: e.clientY };
+        selection.selectionEnd = { x: e.clientX, y: e.clientY };
+        
+        selectionBox.style.display = 'block';
+        updateSelectionBox();
+        e.preventDefault();
+        return;
+    }
+    
+    // Clear selection if clicking without shift
+    if (selection.selectedBlocks.length > 0 && !e.shiftKey) {
+        clearSelection();
+        updateSelectedBlocksVisual();
     }
     
     // Start canvas drag for any click in the viewport area below toolbar
@@ -189,8 +237,50 @@ function startCanvasDrag(e) {
 
 function handleMouseMove(e) {
     const dragging = getDraggingState();
+    const selection = getSelectionState();
     const dialogData = getDialogData();
     const { canvas } = elements;
+    
+    // Handle selection box dragging
+    if (selection.isSelecting) {
+        selection.selectionEnd = { x: e.clientX, y: e.clientY };
+        updateSelectionBox();
+        updateSelectedBlocks();
+        return;
+    }
+    
+    // Handle dragging multiple selected blocks
+    if (selection.isDraggingSelection) {
+        const totalDx = e.clientX - selection.dragOffset.x;
+        const totalDy = e.clientY - selection.dragOffset.y;
+        
+        const snapping = getSnappingState();
+        
+        selection.selectedBlocks.forEach(blockId => {
+            const block = state.dialogData.blocks.find(b => b.id === blockId);
+            if (block) {
+                const initial = selection.initialPositions[blockId];
+                if (initial) {
+                    let newX = initial.x + (totalDx / dialogData.zoom);
+                    let newY = initial.y + (totalDy / dialogData.zoom);
+                    
+                    // Apply snapping if enabled
+                    if (snapping.enabled) {
+                        newX = Math.round(newX / snapping.gridSize) * snapping.gridSize;
+                        newY = Math.round(newY / snapping.gridSize) * snapping.gridSize;
+                    }
+                    
+                    block.x = newX;
+                    block.y = newY;
+                    renderBlock(block);
+                }
+            }
+        });
+        
+        updateConnections();
+        autoSave();
+        return;
+    }
     
     if (dragging.isDraggingCanvas) {
         const currentTime = Date.now();
@@ -260,6 +350,20 @@ function applyMomentum() {
 function stopDrag() {
     const { canvas } = elements;
     const dragging = getDraggingState();
+    const selection = getSelectionState();
+    
+    // Handle selection box release
+    if (selection.isSelecting) {
+        selection.isSelecting = false;
+        selectionBox.style.display = 'none';
+        updateSelectedBlocksVisual();
+    }
+    
+    // Handle selection drag release
+    if (selection.isDraggingSelection) {
+        selection.isDraggingSelection = false;
+        autoSave();
+    }
     
     // Apply momentum if canvas was being dragged
     if (dragging.isDraggingCanvas) {
@@ -279,11 +383,101 @@ function stopDrag() {
     document.body.style.cursor = '';
 }
 
+function handleKeyDown(e) {
+    const selection = getSelectionState();
+    
+    // Escape key clears selection
+    if (e.key === 'Escape' && selection.selectedBlocks.length > 0) {
+        clearSelection();
+        updateSelectedBlocksVisual();
+    }
+}
+
+function updateSelectionBox() {
+    const selection = getSelectionState();
+    
+    const left = Math.min(selection.selectionStart.x, selection.selectionEnd.x);
+    const top = Math.min(selection.selectionStart.y, selection.selectionEnd.y);
+    const width = Math.abs(selection.selectionEnd.x - selection.selectionStart.x);
+    const height = Math.abs(selection.selectionEnd.y - selection.selectionStart.y);
+    
+    selectionBox.style.left = `${left}px`;
+    selectionBox.style.top = `${top}px`;
+    selectionBox.style.width = `${width}px`;
+    selectionBox.style.height = `${height}px`;
+}
+
+function updateSelectedBlocks() {
+    const selection = getSelectionState();
+    const dialogData = getDialogData();
+    
+    const left = Math.min(selection.selectionStart.x, selection.selectionEnd.x);
+    const top = Math.min(selection.selectionStart.y, selection.selectionEnd.y);
+    const right = Math.max(selection.selectionStart.x, selection.selectionEnd.x);
+    const bottom = Math.max(selection.selectionStart.y, selection.selectionEnd.y);
+    
+    selection.selectedBlocks = [];
+    
+    dialogData.blocks.forEach(block => {
+        const blockEl = document.getElementById(`block-${block.id}`);
+        if (!blockEl) return;
+        
+        const rect = blockEl.getBoundingClientRect();
+        
+        // Check if block intersects with selection box
+        if (rect.left < right && rect.right > left &&
+            rect.top < bottom && rect.bottom > top) {
+            selection.selectedBlocks.push(block.id);
+        }
+    });
+    
+    updateSelectedBlocksVisual();
+}
+
+function updateSelectedBlocksVisual() {
+    const selection = getSelectionState();
+    const dialogData = getDialogData();
+    
+    dialogData.blocks.forEach(block => {
+        const blockEl = document.getElementById(`block-${block.id}`);
+        if (blockEl) {
+            if (selection.selectedBlocks.includes(block.id)) {
+                blockEl.classList.add('selected');
+            } else {
+                blockEl.classList.remove('selected');
+            }
+        }
+    });
+}
+
 export function startBlockDrag(e, blockId) {
     e.stopPropagation();
     
     const dragging = getDraggingState();
+    const selection = getSelectionState();
     const dialogData = getDialogData();
+    
+    // If this block is part of a selection, drag the entire selection
+    if (selection.selectedBlocks.includes(blockId)) {
+        selection.isDraggingSelection = true;
+        selection.dragOffset = { x: e.clientX, y: e.clientY };
+        
+        // Store initial positions of all selected blocks
+        selection.initialPositions = {};
+        selection.selectedBlocks.forEach(id => {
+            const block = state.dialogData.blocks.find(b => b.id === id);
+            if (block) {
+                selection.initialPositions[id] = { x: block.x, y: block.y };
+            }
+        });
+        return;
+    }
+    
+    // Otherwise, clear selection and drag single block
+    if (selection.selectedBlocks.length > 0) {
+        clearSelection();
+        updateSelectedBlocksVisual();
+    }
     
     dragging.isDraggingBlock = true;
     dragging.currentDragBlock = blockId;

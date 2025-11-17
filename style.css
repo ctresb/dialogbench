@@ -32,6 +32,13 @@ body {
     z-index: 1000;
 }
 
+.logo {
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+    opacity: 50%;
+}
+
 .toolbar-btn {
     padding: 8px 16px;
     background: linear-gradient(180deg, #5a7a8f 0%, #3d5a6f 100%);
@@ -183,6 +190,18 @@ body {
     transform: translateZ(0);
 }
 
+.selection-box {
+    position: fixed;
+    background: rgba(75, 110, 132, 0.25);
+    border: 2px solid rgba(80, 120, 148, 0.5);
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 1500;
+    box-shadow: 
+        0 0 12px rgba(80, 120, 148, 0.3),
+        inset 0 0 20px rgba(80, 120, 148, 0.1);
+}
+
 .dialog-block {
     position: absolute;
     width: 340px;
@@ -205,6 +224,17 @@ body {
     box-shadow: 
         0 15px 40px rgba(0, 0, 0, 0.7),
         0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.dialog-block.selected {
+    border: 2px solid rgba(80, 120, 148, 0.8);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.6),
+        0 2px 8px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(80, 120, 148, 0.5),
+        0 0 40px rgba(80, 120, 148, 0.2);
 }
 
 .dialog-header {
