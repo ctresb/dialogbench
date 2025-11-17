@@ -10,6 +10,7 @@ import { autoSave } from './storage.js';
 import { copyToClipboard } from './utils.js';
 import { startBlockDrag } from './canvas.js';
 import { openAddResponseModal, openAddCustomModal, editResponse, editCustom } from './modals.js';
+import { t } from './i18n.js';
 
 export function createNewDialog() {
     const dialogData = getDialogData();
@@ -27,7 +28,7 @@ export function createNewDialog() {
         id: getNextId(),
         x: maxX,
         y: 100,
-        lines: ['Texto do diálogo, linha 1.', 'Texto do diálogo, linha 2.'],
+        lines: [t('default_dialogue_line_1'), t('default_dialogue_line_2')],
         responses: [],
         customValues: []
     };
@@ -55,7 +56,7 @@ export function renderBlock(block) {
         <div class="dialog-header">
             <div class="dialog-id">#${String(block.id).padStart(4, '0')}</div>
             <button class="delete-block-btn" data-block-id="${block.id}">
-                <span class="material-icons">delete</span> Deletar
+                <span class="material-icons">delete</span> <span data-i18n="delete_block">${t('delete_block')}</span>
             </button>
         </div>
         
@@ -66,7 +67,7 @@ export function renderBlock(block) {
                         data-block-id="${block.id}"
                         data-line-index="${index}"
                         rows="1">${line}</textarea>
-                    <button class="copy-line-btn" data-block-id="${block.id}" data-line-index="${index}" title="Copiar texto">
+                    <button class="copy-line-btn" data-block-id="${block.id}" data-line-index="${index}" data-i18n-title="copy_text" title="${t('copy_text')}">
                         <span class="material-icons">content_copy</span>
                     </button>
                 </div>
@@ -244,7 +245,7 @@ function setupBlockEventListeners(blockElement, block) {
 export function addLine(blockId) {
     const block = getBlock(blockId);
     if (block) {
-        block.lines.push('Nova linha de diálogo.');
+        block.lines.push(t('new_dialogue_line'));
         renderBlock(block);
         autoSave();
     }
@@ -298,7 +299,7 @@ function updateLine(blockId, lineIndex, value) {
 }
 
 function deleteBlock(blockId) {
-    if (confirm('Tem certeza que deseja deletar este bloco?')) {
+    if (confirm(t('confirm_delete_block'))) {
         removeBlock(blockId);
         const blockElement = document.getElementById(`block-${blockId}`);
         if (blockElement) {

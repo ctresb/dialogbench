@@ -8,6 +8,7 @@ import { elements } from './dom.js';
 import { renderAll } from './blocks.js';
 import { applyZoom } from './canvas.js';
 import { toast } from './toast.js';
+import { t } from './i18n.js';
 
 export function initStorage() {
     const { saveBtn, loadBtn, fileInput } = elements;
@@ -58,7 +59,7 @@ function saveToJSON() {
     a.click();
     
     URL.revokeObjectURL(url);
-    toast.success('JSON salvo com sucesso');
+    toast.success(t('toast_json_saved'));
 }
 
 function loadFromJSON(e) {
@@ -76,9 +77,9 @@ function loadFromJSON(e) {
             renderAll();
             applyZoom();
             autoSave();
-            toast.success('JSON carregado com sucesso!');
+            toast.success(t('toast_json_loaded'));
         } catch (error) {
-            toast.error('Error loading JSON: ' + error.message);
+            toast.error(t('toast_json_error') + error.message);
         }
     };
     reader.readAsText(file);

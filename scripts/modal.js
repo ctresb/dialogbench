@@ -3,6 +3,8 @@
  * Shows confirmation dialogs for destructive actions
  */
 
+import { t } from './i18n.js';
+
 let modalContainer = null;
 let currentModal = null;
 let resolveCallback = null;
@@ -35,10 +37,10 @@ export function showConfirmModal(options = {}) {
     }
 
     const {
-        title = 'Confirm Action',
-        message = 'Are you sure you want to proceed?',
-        confirmText = 'Confirm',
-        cancelText = 'Cancel',
+        title = t('modal_confirm_action'),
+        message = t('modal_confirm_message'),
+        confirmText = t('modal_confirm_text'),
+        cancelText = t('modal_cancel_text'),
         type = 'danger'
     } = options;
 

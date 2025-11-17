@@ -19,14 +19,14 @@
     <div class="toolbar">
         <img src="./logo.svg" class="logo" />
         <button id="saveBtn" class="toolbar-btn">
-            <span class="material-icons">save</span> Salvar JSON
+            <span class="material-icons">save</span> <span data-i18n="save_json">Salvar JSON</span>
         </button>
         <button id="loadBtn" class="toolbar-btn">
-            <span class="material-icons">folder_open</span> Carregar JSON
+            <span class="material-icons">folder_open</span> <span data-i18n="load_json">Carregar JSON</span>
         </button>
         <input type="file" id="fileInput" accept=".json" style="display: none;">
         <button id="newDialogBtn" class="toolbar-btn">
-            <span class="material-icons">add</span> Novo Bloco
+            <span class="material-icons">add</span> <span data-i18n="new_block">Novo Bloco</span>
         </button>
         <div class="toolbar-divider"></div>
         <button id="zoomInBtn" class="toolbar-btn">
@@ -40,11 +40,39 @@
             <span class="material-icons">center_focus_strong</span>
         </button>
         <div class="toolbar-divider"></div>
-        <button id="snappingBtn" class="toolbar-btn toolbar-btn-icon toolbar-btn-toggle active" title="Grid Snapping">
+        <button id="snappingBtn" class="toolbar-btn toolbar-btn-icon toolbar-btn-toggle active" data-i18n-title="grid_snapping" title="Grid Snapping">
             <span class="material-icons">grid_4x4</span>
         </button>
         <div class="toolbar-info">
             <span id="autoSaveIndicator"></span>
+        </div>
+        <div class="toolbar-divider"></div>
+        <div class="language-selector">
+            <button id="languageBtn" class="toolbar-btn toolbar-btn-icon">
+                <span class="material-icons">language</span>
+            </button>
+            <div id="languageDropdown" class="language-dropdown">
+                <button class="language-option" data-locale="pt_br">
+                    <img src="./icons/br.png" alt="Português" class="flag-icon" />
+                    <span>Português</span>
+                </button>
+                <button class="language-option" data-locale="es_es">
+                    <img src="./icons/es.png" alt="Español" class="flag-icon" />
+                    <span>Español</span>
+                </button>
+                <button class="language-option" data-locale="en_us">
+                    <img src="./icons/us.png" alt="English" class="flag-icon" />
+                    <span>English</span>
+                </button>
+                <button class="language-option" data-locale="ja_jp">
+                    <img src="./icons/jp.png" alt="日本語" class="flag-icon" />
+                    <span>日本語</span>
+                </button>
+                <button class="language-option" data-locale="zh_cn">
+                    <img src="./icons/cn.png" alt="中文" class="flag-icon" />
+                    <span>中文</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -59,22 +87,22 @@
     <!-- Modal para adicionar Resposta -->
     <div id="responseModal" class="modal">
         <div class="modal-content">
-            <h3>Adicionar Resposta</h3>
-            <label>Texto da Resposta:</label>
-            <input type="text" id="responseText" placeholder="Digite o texto da resposta">
+            <h3 data-i18n="add_response">Adicionar Resposta</h3>
+            <label data-i18n="response_text">Texto da Resposta:</label>
+            <input type="text" id="responseText" data-i18n-placeholder="response_text_placeholder" placeholder="Digite o texto da resposta">
 
-            <label>Cor:</label>
+            <label data-i18n="color">Cor:</label>
             <input type="color" id="responseColor" value="#8B5A5A">
 
-            <label>Conectar ao Bloco:</label>
+            <label data-i18n="connect_to_block">Conectar ao Bloco:</label>
             <div class="autocomplete-wrapper">
-                <input type="text" id="responseTarget" placeholder="Digite para buscar..." autocomplete="off">
+                <input type="text" id="responseTarget" data-i18n-placeholder="search_placeholder" placeholder="Digite para buscar..." autocomplete="off">
                 <div id="responseTargetList" class="autocomplete-list"></div>
             </div>
 
             <div class="modal-buttons">
-                <button id="confirmResponse" class="btn-confirm">Confirmar</button>
-                <button id="cancelResponse" class="btn-cancel">Cancelar</button>
+                <button id="confirmResponse" class="btn-confirm" data-i18n="confirm">Confirmar</button>
+                <button id="cancelResponse" class="btn-cancel" data-i18n="cancel">Cancelar</button>
             </div>
         </div>
     </div>
@@ -82,42 +110,42 @@
     <!-- Modal para adicionar Variável -->
     <div id="customModal" class="modal">
         <div class="modal-content">
-            <h3>Adicionar Variável</h3>
+            <h3 data-i18n="add_variable">Adicionar Variável</h3>
 
-            <label>Tipo de Variável:</label>
+            <label data-i18n="variable_type">Tipo de Variável:</label>
             <div class="radio-group">
                 <label class="radio-label">
                     <input type="radio" name="variableType" value="chave" checked>
-                    <span>Chave</span>
+                    <span data-i18n="key">Chave</span>
                 </label>
                 <label class="radio-label">
                     <input type="radio" name="variableType" value="texto">
-                    <span>Texto</span>
+                    <span data-i18n="text">Texto</span>
                 </label>
             </div>
 
-            <label>Nome da Variável:</label>
-            <input type="text" id="customVariableName" placeholder="Digite o nome da variável">
+            <label data-i18n="variable_name">Nome da Variável:</label>
+            <input type="text" id="customVariableName" data-i18n-placeholder="variable_name_placeholder" placeholder="Digite o nome da variável">
 
             <div id="chaveInputs">
-                <label>Valor:</label>
+                <label data-i18n="value">Valor:</label>
                 <select id="customChaveValue">
-                    <option value="true">Sim</option>
-                    <option value="false">Não</option>
+                    <option value="true" data-i18n="yes">Sim</option>
+                    <option value="false" data-i18n="no">Não</option>
                 </select>
             </div>
 
             <div id="textoInputs" style="display: none;">
-                <label>Valor:</label>
-                <input type="text" id="customTextoValue" placeholder="Digite o valor">
+                <label data-i18n="value">Valor:</label>
+                <input type="text" id="customTextoValue" data-i18n-placeholder="value_placeholder" placeholder="Digite o valor">
             </div>
 
-            <label>Cor:</label>
+            <label data-i18n="color">Cor:</label>
             <input type="color" id="customColor" value="#A07847">
 
             <div class="modal-buttons">
-                <button id="confirmCustom" class="btn-confirm">Confirmar</button>
-                <button id="cancelCustom" class="btn-cancel">Cancelar</button>
+                <button id="confirmCustom" class="btn-confirm" data-i18n="confirm">Confirmar</button>
+                <button id="cancelCustom" class="btn-cancel" data-i18n="cancel">Cancelar</button>
             </div>
         </div>
     </div>
@@ -125,22 +153,22 @@
     <!-- Modal para editar Resposta -->
     <div id="editResponseModal" class="modal">
         <div class="modal-content">
-            <h3>Editar Resposta</h3>
-            <label>Texto da Resposta:</label>
-            <input type="text" id="editResponseText" placeholder="Digite o texto da resposta">
+            <h3 data-i18n="edit_response">Editar Resposta</h3>
+            <label data-i18n="response_text">Texto da Resposta:</label>
+            <input type="text" id="editResponseText" data-i18n-placeholder="response_text_placeholder" placeholder="Digite o texto da resposta">
 
-            <label>Cor:</label>
+            <label data-i18n="color">Cor:</label>
             <input type="color" id="editResponseColor">
 
-            <label>Conectar ao Bloco:</label>
+            <label data-i18n="connect_to_block">Conectar ao Bloco:</label>
             <div class="autocomplete-wrapper">
-                <input type="text" id="editResponseTarget" placeholder="Digite para buscar..." autocomplete="off">
+                <input type="text" id="editResponseTarget" data-i18n-placeholder="search_placeholder" placeholder="Digite para buscar..." autocomplete="off">
                 <div id="editResponseTargetList" class="autocomplete-list"></div>
             </div>
 
             <div class="modal-buttons">
-                <button id="confirmEditResponse" class="btn-confirm">Confirmar</button>
-                <button id="cancelEditResponse" class="btn-cancel">Cancelar</button>
+                <button id="confirmEditResponse" class="btn-confirm" data-i18n="confirm">Confirmar</button>
+                <button id="cancelEditResponse" class="btn-cancel" data-i18n="cancel">Cancelar</button>
                 <button id="deleteResponse" class="btn-delete">
                     <span class="material-icons">delete</span>
                 </button>
@@ -151,42 +179,42 @@
     <!-- Modal para editar Variável -->
     <div id="editCustomModal" class="modal">
         <div class="modal-content">
-            <h3>Editar Variável</h3>
+            <h3 data-i18n="edit_variable">Editar Variável</h3>
 
-            <label>Tipo de Variável:</label>
+            <label data-i18n="variable_type">Tipo de Variável:</label>
             <div class="radio-group">
                 <label class="radio-label">
                     <input type="radio" name="editVariableType" value="chave">
-                    <span>Chave</span>
+                    <span data-i18n="key">Chave</span>
                 </label>
                 <label class="radio-label">
                     <input type="radio" name="editVariableType" value="texto">
-                    <span>Texto</span>
+                    <span data-i18n="text">Texto</span>
                 </label>
             </div>
 
-            <label>Nome da Variável:</label>
-            <input type="text" id="editCustomVariableName" placeholder="Digite o nome da variável">
+            <label data-i18n="variable_name">Nome da Variável:</label>
+            <input type="text" id="editCustomVariableName" data-i18n-placeholder="variable_name_placeholder" placeholder="Digite o nome da variável">
 
             <div id="editChaveInputs">
-                <label>Valor:</label>
+                <label data-i18n="value">Valor:</label>
                 <select id="editCustomChaveValue">
-                    <option value="true">Sim</option>
-                    <option value="false">Não</option>
+                    <option value="true" data-i18n="yes">Sim</option>
+                    <option value="false" data-i18n="no">Não</option>
                 </select>
             </div>
 
             <div id="editTextoInputs" style="display: none;">
-                <label>Valor:</label>
-                <input type="text" id="editCustomTextoValue" placeholder="Digite o valor">
+                <label data-i18n="value">Valor:</label>
+                <input type="text" id="editCustomTextoValue" data-i18n-placeholder="value_placeholder" placeholder="Digite o valor">
             </div>
 
-            <label>Cor:</label>
+            <label data-i18n="color">Cor:</label>
             <input type="color" id="editCustomColor">
 
             <div class="modal-buttons">
-                <button id="confirmEditCustom" class="btn-confirm">Confirmar</button>
-                <button id="cancelEditCustom" class="btn-cancel">Cancelar</button>
+                <button id="confirmEditCustom" class="btn-confirm" data-i18n="confirm">Confirmar</button>
+                <button id="cancelEditCustom" class="btn-cancel" data-i18n="cancel">Cancelar</button>
                 <button id="deleteCustom" class="btn-delete">
                     <span class="material-icons">delete</span>
                 </button>

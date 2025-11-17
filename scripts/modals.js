@@ -9,6 +9,7 @@ import { renderBlock } from './blocks.js';
 import { updateConnections } from './connections.js';
 import { autoSave } from './storage.js';
 import { getRandomColor } from './utils.js';
+import { t } from './i18n.js';
 
 export function initModals() {
     const { responseModal, customModal, editResponseModal, editCustomModal } = elements;
@@ -176,7 +177,7 @@ function confirmAddResponse() {
     const target = document.getElementById('responseTarget').value;
     
     if (!text) {
-        alert('Por favor, digite um texto para a resposta.');
+        alert(t('alert_response_text_required'));
         return;
     }
     
@@ -200,7 +201,7 @@ function confirmAddCustom() {
     const color = document.getElementById('customColor').value;
     
     if (!name) {
-        alert('Por favor, digite o nome da variável.');
+        alert(t('alert_variable_name_required'));
         return;
     }
     
@@ -210,7 +211,7 @@ function confirmAddCustom() {
     } else {
         value = document.getElementById('customTextoValue').value;
         if (!value) {
-            alert('Por favor, digite o valor da variável.');
+            alert(t('alert_variable_value_required'));
             return;
         }
     }
@@ -234,7 +235,7 @@ function confirmEditResponse() {
     const target = document.getElementById('editResponseTarget').value;
     
     if (!text) {
-        alert('Por favor, digite um texto para a resposta.');
+        alert(t('alert_response_text_required'));
         return;
     }
     
@@ -258,7 +259,7 @@ function confirmEditCustom() {
     const color = document.getElementById('editCustomColor').value;
     
     if (!name) {
-        alert('Por favor, digite o nome da variável.');
+        alert(t('alert_variable_name_required'));
         return;
     }
     
@@ -268,7 +269,7 @@ function confirmEditCustom() {
     } else {
         value = document.getElementById('editCustomTextoValue').value;
         if (!value) {
-            alert('Por favor, digite o valor da variável.');
+            alert(t('alert_variable_value_required'));
             return;
         }
     }
@@ -287,7 +288,7 @@ function deleteResponse() {
     const { editResponseModal } = elements;
     const editing = getEditingState();
     
-    if (confirm('Tem certeza que deseja excluir esta resposta?')) {
+    if (confirm(t('confirm_delete_response'))) {
         const block = getBlock(editing.currentEditingItem.blockId);
         if (block) {
             block.responses.splice(editing.currentEditingItem.index, 1);
@@ -303,7 +304,7 @@ function deleteCustomValue() {
     const { editCustomModal } = elements;
     const editing = getEditingState();
     
-    if (confirm('Tem certeza que deseja excluir este valor customizado?')) {
+    if (confirm(t('confirm_delete_custom'))) {
         const block = getBlock(editing.currentEditingItem.blockId);
         if (block) {
             block.customValues.splice(editing.currentEditingItem.index, 1);

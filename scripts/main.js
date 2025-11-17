@@ -12,10 +12,17 @@ import { initStorage, loadFromLocalStorage } from './storage.js';
 import { createNewDialog, renderAll } from './blocks.js';
 import { initToast } from './toast.js';
 import { initConfirmModal } from './modal.js';
+import { loadLocales, applyTranslations, setLocale } from './i18n.js';
 
-export function initApp() {
+export async function initApp() {
+    // Load locales first
+    await loadLocales();
+    
     // Initialize DOM element references
     initDOMElements();
+    
+    // Apply translations to HTML elements
+    applyTranslations();
     
     // Initialize toast notifications
     initToast();
@@ -69,6 +76,32 @@ function setupToolbar() {
     snappingBtn.addEventListener('click', () => {
         const enabled = toggleSnapping();
         snappingBtn.classList.toggle('active', enabled);
+    });
+    
+    // Language selector
+    const languageBtn = document.getElementById('languageBtn');
+    const languageDropdown = document.getElementById('languageDropdown');
+    const languageOptions = document.querySelectorAll('.language-option');
+    
+    languageBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        languageDropdown.classList.toggle('active');
+    });
+    
+    languageOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const locale = option.getAttribute('data-locale');
+            setLocale(locale);
+            renderAll();
+            languageDropdown.classList.remove('active');
+        });
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!languageBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+            languageDropdown.classList.remove('active');
+        }
     });
 }
 
