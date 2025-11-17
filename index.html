@@ -25,7 +25,7 @@
         </button>
         <input type="file" id="fileInput" accept=".json" style="display: none;">
         <button id="newDialogBtn" class="toolbar-btn">
-            <span class="material-icons">add</span> Novo Diálogo
+            <span class="material-icons">add</span> Novo Bloco
         </button>
         <div class="toolbar-divider"></div>
         <button id="zoomInBtn" class="toolbar-btn">
@@ -37,6 +37,10 @@
         </button>
         <button id="resetZoomBtn" class="toolbar-btn">
             <span class="material-icons">center_focus_strong</span>
+        </button>
+        <div class="toolbar-divider"></div>
+        <button id="snappingBtn" class="toolbar-btn toolbar-btn-icon toolbar-btn-toggle active" title="Grid Snapping">
+            <span class="material-icons">grid_4x4</span>
         </button>
         <div class="toolbar-info">
             <span id="autoSaveIndicator"></span>
@@ -83,7 +87,7 @@
             <div class="radio-group">
                 <label class="radio-label">
                     <input type="radio" name="variableType" value="chave" checked>
-                    <span>Chave (Sim/Não)</span>
+                    <span>Chave</span>
                 </label>
                 <label class="radio-label">
                     <input type="radio" name="variableType" value="texto">
@@ -97,8 +101,8 @@
             <div id="chaveInputs">
                 <label>Valor:</label>
                 <select id="customChaveValue">
-                    <option value="sim">Sim</option>
-                    <option value="não">Não</option>
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
                 </select>
             </div>
 
@@ -151,8 +155,8 @@
             <label>Tipo de Variável:</label>
             <div class="radio-group">
                 <label class="radio-label">
-                    <input type="radio" name="editVariableType" value="chave" checked>
-                    <span>Chave (Sim/Não)</span>
+                    <input type="radio" name="editVariableType" value="chave">
+                    <span>Chave</span>
                 </label>
                 <label class="radio-label">
                     <input type="radio" name="editVariableType" value="texto">
@@ -166,8 +170,8 @@
             <div id="editChaveInputs">
                 <label>Valor:</label>
                 <select id="editCustomChaveValue">
-                    <option value="sim">Sim</option>
-                    <option value="não">Não</option>
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
                 </select>
             </div>
 

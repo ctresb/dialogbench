@@ -177,7 +177,7 @@ function drawConnection(fromBlock, toBlock, color, responseIndex) {
     line.setAttribute('stroke', wire);
     
     // Use a more efficient filter (single declaration)
-    line.style.filter = `drop-shadow(0 0 2px ${glow}) drop-shadow(0 0 10px ${glow}) drop-shadow(0 0 30px ${glow})`;
+    line.style.filter = `drop-shadow(0 0 2px ${glow}) drop-shadow(0 0 2px ${glow})`;
     
     return line;
 }

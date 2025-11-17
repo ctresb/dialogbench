@@ -100,7 +100,7 @@ export function openAddCustomModal(blockId) {
     // Reset to default values
     document.querySelector('input[name="variableType"][value="chave"]').checked = true;
     document.getElementById('customVariableName').value = '';
-    document.getElementById('customChaveValue').value = 'sim';
+    document.getElementById('customChaveValue').value = 'true';
     document.getElementById('customTextoValue').value = '';
     document.getElementById('customColor').value = getRandomColor();
     

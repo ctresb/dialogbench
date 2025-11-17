@@ -18,7 +18,7 @@ export function createNewDialog() {
     let maxX = 0;
     if (dialogData.blocks.length > 0) {
         maxX = Math.max(...dialogData.blocks.map(b => b.x));
-        maxX += 370; // 320px block width + 50px margin
+        maxX += 390; // 320px block width + 50px margin
     } else {
         maxX = 100;
     }

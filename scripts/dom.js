@@ -16,6 +16,7 @@ export const elements = {
     zoomInBtn: null,
     zoomOutBtn: null,
     resetZoomBtn: null,
+    snappingBtn: null,
     zoomLevel: null,
     
     // Modals
@@ -39,6 +40,7 @@ export function initDOMElements() {
     elements.zoomInBtn = document.getElementById('zoomInBtn');
     elements.zoomOutBtn = document.getElementById('zoomOutBtn');
     elements.resetZoomBtn = document.getElementById('resetZoomBtn');
+    elements.snappingBtn = document.getElementById('snappingBtn');
     elements.zoomLevel = document.getElementById('zoomLevel');
     
     elements.responseModal = document.getElementById('responseModal');

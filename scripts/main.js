@@ -3,17 +3,25 @@
  * Initializes and coordinates all application modules
  */
 
-import { getDialogData } from './state.js';
+import { getDialogData, toggleSnapping } from './state.js';
 import { initDOMElements, elements } from './dom.js';
 import { initCanvas, adjustZoom, resetZoom, applyZoom } from './canvas.js';
 import { initModals } from './modals.js';
 import { initAutocomplete } from './autocomplete.js';
 import { initStorage, loadFromLocalStorage } from './storage.js';
 import { createNewDialog, renderAll } from './blocks.js';
+import { initToast } from './toast.js';
+import { initConfirmModal } from './modal.js';
 
 export function initApp() {
     // Initialize DOM element references
     initDOMElements();
+    
+    // Initialize toast notifications
+    initToast();
+    
+    // Initialize confirmation modals
+    initConfirmModal();
     
     // Initialize canvas (grid, dragging, zoom)
     initCanvas();
@@ -47,7 +55,7 @@ export function initApp() {
 }
 
 function setupToolbar() {
-    const { newDialogBtn, zoomInBtn, zoomOutBtn, resetZoomBtn } = elements;
+    const { newDialogBtn, zoomInBtn, zoomOutBtn, resetZoomBtn, snappingBtn } = elements;
     
     // New dialog button
     newDialogBtn.addEventListener('click', createNewDialog);
@@ -56,6 +64,12 @@ function setupToolbar() {
     zoomInBtn.addEventListener('click', () => adjustZoom(0.1));
     zoomOutBtn.addEventListener('click', () => adjustZoom(-0.1));
     resetZoomBtn.addEventListener('click', resetZoom);
+    
+    // Snapping toggle
+    snappingBtn.addEventListener('click', () => {
+        const enabled = toggleSnapping();
+        snappingBtn.classList.toggle('active', enabled);
+    });
 }
 
 function setupKeyboardShortcuts() {

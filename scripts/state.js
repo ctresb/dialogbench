@@ -19,6 +19,11 @@ export const state = {
         blockDragOffset: { x: 0, y: 0 }
     },
     
+    snapping: {
+        enabled: true,
+        gridSize: 20
+    },
+    
     editing: {
         currentEditingItem: null,
         selectedTarget: null
@@ -51,6 +56,15 @@ export function getNextId() {
 
 export function getDraggingState() {
     return state.dragging;
+}
+
+export function getSnappingState() {
+    return state.snapping;
+}
+
+export function toggleSnapping() {
+    state.snapping.enabled = !state.snapping.enabled;
+    return state.snapping.enabled;
 }
 
 export function getEditingState() {

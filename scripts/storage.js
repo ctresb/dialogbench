@@ -7,7 +7,7 @@ import { getDialogData, setDialogData } from './state.js';
 import { elements } from './dom.js';
 import { renderAll } from './blocks.js';
 import { applyZoom } from './canvas.js';
-import { showToast } from './utils.js';
+import { toast } from './toast.js';
 
 export function initStorage() {
     const { saveBtn, loadBtn, fileInput } = elements;
@@ -25,7 +25,6 @@ export function autoSave() {
         nextId: dialogData.nextId
     };
     localStorage.setItem('dialogData', JSON.stringify(dataToSave));
-    showToast('💾 Alterações salvas');
 }
 
 export function loadFromLocalStorage() {
@@ -59,7 +58,7 @@ function saveToJSON() {
     a.click();
     
     URL.revokeObjectURL(url);
-    showToast('✓ JSON exportado!');
+    toast.success('JSON salvo com sucesso');
 }
 
 function loadFromJSON(e) {
@@ -77,9 +76,9 @@ function loadFromJSON(e) {
             renderAll();
             applyZoom();
             autoSave();
-            showToast('✓ JSON carregado!');
+            toast.success('JSON carregado com sucesso!');
         } catch (error) {
-            alert('Erro ao carregar arquivo JSON: ' + error.message);
+            toast.error('Error loading JSON: ' + error.message);
         }
     };
     reader.readAsText(file);
