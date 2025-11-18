@@ -1,0 +1,351 @@
+/* ============================================
+   UTILITY CLASSES - Reusable Styles
+   ============================================ */
+
+/* === Gradient Backgrounds === */
+.bg-gradient-primary {
+    background: linear-gradient(145deg, var(--color-bg-card-light) 0%, var(--color-bg-card) 100%);
+}
+
+.bg-gradient-input {
+    background: linear-gradient(145deg, var(--color-bg-input) 0%, var(--color-bg-dark) 100%);
+}
+
+.bg-gradient-button {
+    background: linear-gradient(180deg, #5a7a8f 0%, #3d5a6f 100%);
+}
+
+.bg-gradient-button-hover {
+    background: linear-gradient(180deg, #6a8a9f 0%, #4d6a7f 100%);
+}
+
+.bg-gradient-success {
+    background: linear-gradient(180deg, #7ecaa3 0%, var(--color-primary-dark) 100%);
+}
+
+.bg-gradient-success-hover {
+    background: linear-gradient(180deg, #8edab3 0%, #6ec595 100%);
+}
+
+.bg-gradient-danger {
+    background: linear-gradient(180deg, var(--color-error) 0%, #b83e3e 100%);
+}
+
+.bg-gradient-danger-hover {
+    background: linear-gradient(180deg, var(--color-error-hover) 0%, #c84e4e 100%);
+}
+
+.bg-gradient-neutral {
+    background: linear-gradient(180deg, #7a8a9a 0%, var(--color-gray-600) 100%);
+}
+
+.bg-gradient-neutral-hover {
+    background: linear-gradient(180deg, #8a9aaa 0%, #6a7a8a 100%);
+}
+
+/* === Button Base Styles === */
+.btn {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: 1px solid var(--color-border-dark);
+    border-radius: var(--radius-md);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    font-size: var(--font-size-md);
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.btn .material-symbols-rounded {
+    font-size: 20px;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+/* === Button Variants === */
+.btn-primary {
+    background: linear-gradient(180deg, #5a7a8f 0%, #3d5a6f 100%);
+    border-color: var(--color-border-dark);
+    box-shadow: 
+        var(--shadow-sm),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(180deg, #6a8a9f 0%, #4d6a7f 100%);
+    box-shadow: 
+        0 3px 6px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:active {
+    box-shadow: 
+        0 1px 2px rgba(0, 0, 0, 0.4),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-success {
+    background: linear-gradient(180deg, #7ecaa3 0%, var(--color-primary-dark) 100%);
+    border-color: #4a9570;
+    color: #fff;
+    box-shadow: 
+        0 3px 6px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn-success:hover {
+    background: linear-gradient(180deg, #8edab3 0%, #6ec595 100%);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.btn-success:active {
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.4),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-danger {
+    background: linear-gradient(180deg, var(--color-error) 0%, #b83e3e 100%);
+    border-color: #8e2e2e;
+    color: #fff;
+    box-shadow: 
+        0 3px 6px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn-danger:hover {
+    background: linear-gradient(180deg, var(--color-error-hover) 0%, #c84e4e 100%);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-danger:active {
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.4),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-neutral {
+    background: linear-gradient(180deg, #7a8a9a 0%, var(--color-gray-600) 100%);
+    border-color: var(--color-gray-700);
+    box-shadow: 
+        0 3px 6px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn-neutral:hover {
+    background: linear-gradient(180deg, #8a9aaa 0%, #6a7a8a 100%);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-neutral:active {
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.4),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-warning {
+    background: linear-gradient(180deg, var(--color-warning) 0%, #c8893e 100%);
+    border-color: #a86e2e;
+    color: #fff;
+}
+
+.btn-warning:hover {
+    background: linear-gradient(180deg, var(--color-warning-hover) 0%, #d8994e 100%);
+}
+
+/* === Button Sizes === */
+.btn-sm {
+    padding: 6px 12px;
+    font-size: var(--font-size-xs);
+}
+
+.btn-sm .material-symbols-rounded {
+    font-size: 16px;
+}
+
+.btn-icon {
+    padding: var(--spacing-sm);
+    min-width: 40px;
+}
+
+.btn-icon .material-symbols-rounded {
+    margin: 0;
+}
+
+/* === Input Styles === */
+.input {
+    width: 100%;
+    padding: var(--spacing-md);
+    background: linear-gradient(145deg, var(--color-bg-input) 0%, var(--color-bg-dark) 100%);
+    border: 1px solid var(--color-border-darker);
+    border-radius: var(--radius-md);
+    color: var(--color-gray-100);
+    font-size: var(--font-size-md);
+    outline: none;
+    box-shadow: 
+        var(--shadow-inset-dark),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+    transition: all var(--transition-normal);
+}
+
+.input:focus {
+    border-color: #4a6a7f;
+    background: linear-gradient(145deg, #2f3f50 0%, #243340 100%);
+    box-shadow: 
+        var(--shadow-inset-dark),
+        0 0 0 2px rgba(90, 140, 170, 0.3);
+}
+
+.textarea {
+    background: linear-gradient(145deg, var(--color-bg-input) 0%, var(--color-bg-dark) 100%);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-md);
+    border: 1px solid var(--color-border-darker);
+    color: var(--color-gray-100);
+    flex: 1;
+    outline: none;
+    transition: all var(--transition-normal);
+    font-family: var(--font-family-ui);
+    resize: none;
+    overflow: hidden;
+    min-height: 40px;
+    box-shadow: 
+        var(--shadow-inset-dark),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.textarea:focus {
+    background: linear-gradient(145deg, #2f3f50 0%, #243340 100%);
+    border-color: #4a6a7f;
+    box-shadow: 
+        var(--shadow-inset-dark),
+        0 0 0 2px rgba(90, 140, 170, 0.3);
+}
+
+/* === Card Styles === */
+.card {
+    background: linear-gradient(145deg, var(--color-bg-card-light) 0%, var(--color-bg-card) 100%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: 
+        var(--shadow-lg),
+        0 2px 8px rgba(0, 0, 0, 0.4),
+        var(--shadow-inset-light),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.card-elevated {
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.7),
+        0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* === Text Utilities === */
+.text-shadow {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-strong {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.text-primary {
+    color: var(--color-text-primary);
+}
+
+.text-secondary {
+    color: var(--color-text-secondary);
+}
+
+.text-muted {
+    color: var(--color-text-muted);
+}
+
+.text-success {
+    color: var(--color-primary);
+}
+
+.text-error {
+    color: var(--color-error);
+}
+
+/* === Flex Utilities === */
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.gap-sm {
+    gap: var(--spacing-sm);
+}
+
+.gap-md {
+    gap: var(--spacing-md);
+}
+
+.gap-lg {
+    gap: var(--spacing-lg);
+}
+
+/* === Glow Effects === */
+.glow-success {
+    box-shadow: 0 0 12px rgba(110, 200, 155, 0.4);
+}
+
+.glow-success-strong {
+    box-shadow: 0 0 16px rgba(110, 200, 155, 0.5);
+}
+
+.filter-drop-shadow-success {
+    filter: drop-shadow(0 0 6px rgba(110, 200, 155, 0.5));
+}
+
+.filter-drop-shadow-error {
+    filter: drop-shadow(0 0 6px rgba(213, 90, 90, 0.5));
+}
+
+.filter-drop-shadow-warning {
+    filter: drop-shadow(0 0 6px rgba(229, 165, 90, 0.5));
+}
+
+.filter-drop-shadow-info {
+    filter: drop-shadow(0 0 6px rgba(90, 138, 206, 0.5));
+}

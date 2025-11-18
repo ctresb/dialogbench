@@ -1,0 +1,159 @@
+/* ============================================
+   CONFIRMATION MODAL COMPONENT STYLES
+   ============================================ */
+
+.confirm-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    z-index: var(--z-confirm-modal);
+    align-items: center;
+    justify-content: center;
+}
+
+.confirm-modal-overlay.active {
+    display: flex;
+}
+
+.confirm-modal-content {
+    background: linear-gradient(145deg, var(--color-bg-card-light) 0%, var(--color-bg-card) 100%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    width: 450px;
+    max-width: 90vw;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.8),
+        0 8px 25px rgba(0, 0, 0, 0.6),
+        var(--shadow-inset-light);
+    transform: scale(0.9);
+    opacity: 0;
+    transition: all var(--transition-fast) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.confirm-modal-content.show {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.confirm-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 25px 25px 15px;
+    border-bottom: 1px solid rgba(74, 95, 111, 0.5);
+}
+
+.confirm-modal-icon {
+    font-size: 32px;
+    color: var(--color-warning);
+    filter: drop-shadow(0 0 8px rgba(229, 165, 90, 0.5));
+}
+
+.confirm-modal-header h3 {
+    flex: 1;
+    margin: 0;
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-primary);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.confirm-modal-body {
+    padding: var(--spacing-xl) 25px;
+    font-size: var(--font-size-lg);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+}
+
+.confirm-modal-footer {
+    display: flex;
+    gap: var(--spacing-md);
+    padding: 15px 25px 25px;
+}
+
+.btn-modal-cancel,
+.btn-modal-confirm {
+    flex: 1;
+    padding: var(--spacing-md) var(--spacing-xl);
+    border: 1px solid;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.btn-modal-cancel {
+    background: linear-gradient(180deg, #7a8a9a 0%, var(--color-gray-600) 100%);
+    border-color: var(--color-gray-700);
+    color: var(--color-text-primary);
+    box-shadow: 
+        0 3px 6px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn-modal-cancel:hover {
+    background: linear-gradient(180deg, #8a9aaa 0%, #6a7a8a 100%);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-modal-cancel:active {
+    transform: translateY(1px);
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.4),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-modal-confirm {
+    background: linear-gradient(180deg, #7ecaa3 0%, var(--color-primary-dark) 100%);
+    border-color: #4a9570;
+    color: #fff;
+    box-shadow: 
+        0 3px 6px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn-modal-confirm:hover {
+    background: linear-gradient(180deg, #8edab3 0%, #6ec595 100%);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.btn-modal-confirm:active {
+    transform: translateY(1px);
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.4),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-modal-danger {
+    background: linear-gradient(180deg, var(--color-error) 0%, #b83e3e 100%);
+    border-color: #8e2e2e;
+}
+
+.btn-modal-danger:hover {
+    background: linear-gradient(180deg, var(--color-error-hover) 0%, #c84e4e 100%);
+}
+
+.btn-modal-warning {
+    background: linear-gradient(180deg, var(--color-warning) 0%, #c8893e 100%);
+    border-color: #a86e2e;
+}
+
+.btn-modal-warning:hover {
+    background: linear-gradient(180deg, var(--color-warning-hover) 0%, #d8994e 100%);
+}

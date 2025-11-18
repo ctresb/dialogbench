@@ -125,37 +125,35 @@ export function applyZoom() {
 }
 
 function handleWheel(e) {
-    if (e.ctrlKey || e.metaKey) {
-        e.preventDefault();
-        
-        const dialogData = getDialogData();
-        
-        // Mouse position relative to the page
-        const mouseX = e.pageX;
-        const mouseY = e.pageY - 60; // Account for toolbar
-        
-        // Store old zoom
-        const oldZoom = dialogData.zoom;
-        
-        // Calculate zoom delta
-        const delta = e.deltaY > 0 ? -0.05 : 0.05;
-        const newZoom = Math.max(0.2, Math.min(2, oldZoom + delta));
-        const zoomRatio = newZoom / oldZoom;
-        
-        // Calculate what point on the canvas is under the cursor before zoom
-        const canvasPointX = (mouseX - dialogData.canvasOffset.x) / oldZoom;
-        const canvasPointY = (mouseY - dialogData.canvasOffset.y) / oldZoom;
-        
-        // Update zoom
-        dialogData.zoom = newZoom;
-        
-        // Recalculate offset so the same canvas point stays under cursor
-        dialogData.canvasOffset.x = mouseX - (canvasPointX * newZoom);
-        dialogData.canvasOffset.y = mouseY - (canvasPointY * newZoom);
-        
-        applyZoom();
-        autoSave();
-    }
+    e.preventDefault();
+    
+    const dialogData = getDialogData();
+    
+    // Mouse position relative to the page
+    const mouseX = e.pageX;
+    const mouseY = e.pageY - 60; // Account for toolbar
+    
+    // Store old zoom
+    const oldZoom = dialogData.zoom;
+    
+    // Calculate zoom delta
+    const delta = e.deltaY > 0 ? -0.05 : 0.05;
+    const newZoom = Math.max(0.2, Math.min(2, oldZoom + delta));
+    const zoomRatio = newZoom / oldZoom;
+    
+    // Calculate what point on the canvas is under the cursor before zoom
+    const canvasPointX = (mouseX - dialogData.canvasOffset.x) / oldZoom;
+    const canvasPointY = (mouseY - dialogData.canvasOffset.y) / oldZoom;
+    
+    // Update zoom
+    dialogData.zoom = newZoom;
+    
+    // Recalculate offset so the same canvas point stays under cursor
+    dialogData.canvasOffset.x = mouseX - (canvasPointX * newZoom);
+    dialogData.canvasOffset.y = mouseY - (canvasPointY * newZoom);
+    
+    applyZoom();
+    autoSave();
 }
 
 // Momentum tracking

@@ -1,0 +1,26 @@
+/* ============================================
+   DIALOG BENCH - MAIN STYLESHEET
+   
+   A modular, scalable CSS architecture for
+   the Dialog Bench visual dialogue editor.
+   
+   Structure:
+   1. Variables (Design tokens)
+   2. Base (Reset & global styles)
+   3. Utilities (Reusable classes)
+   4. Components (UI modules)
+   ============================================ */
+
+/* === Foundation === */
+@import './variables.css';
+@import './base.css';
+@import './utilities.css';
+
+/* === Components === */
+@import './toolbar.css';
+@import './blocks.css';
+@import './event-block.css';
+@import './modal.css';
+@import './confirm-modal.css';
+@import './toast.css';
+@import './tutorial.css';

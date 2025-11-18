@@ -14,6 +14,7 @@ import { createEditButton, setupEditButton } from './editButton.js';
 import { createCopyButton, setupCopyButton } from './copyButton.js';
 import { createVariablesHTML, setupVariableListeners } from './blockVariable.js';
 import { openEditEventModal } from './modals.js';
+import { showConfirmModal } from './modal.js';
 import { t } from './i18n.js';
 
 export class EventBlock extends Block {
@@ -160,8 +161,16 @@ export class EventBlock extends Block {
     /**
      * Delete this block
      */
-    delete() {
-        if (confirm(t('confirm_delete_event'))) {
+    async delete() {
+        const confirmed = await showConfirmModal({
+            title: t('confirm_delete_event_title'),
+            message: t('confirm_delete_event'),
+            confirmText: t('confirm_delete_event_confirm'),
+            cancelText: t('confirm_delete_event_cancel'),
+            type: 'danger'
+        });
+        
+        if (confirmed) {
             removeBlock(this.id);
             this.remove();
             updateConnections();

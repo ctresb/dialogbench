@@ -9,6 +9,7 @@ import { updateConnections } from './connections.js';
 import { autoSave } from './storage.js';
 import { copyToClipboard } from './utils.js';
 import { openAddResponseModal, openAddCustomModal, editResponse, editCustom } from './modals.js';
+import { showConfirmModal } from './modal.js';
 import { t } from './i18n.js';
 
 export class DialogBlock extends Block {
@@ -325,8 +326,16 @@ export class DialogBlock extends Block {
     /**
      * Delete this block
      */
-    delete() {
-        if (confirm(t('confirm_delete_block'))) {
+    async delete() {
+        const confirmed = await showConfirmModal({
+            title: t('confirm_delete_block_title'),
+            message: t('confirm_delete_block'),
+            confirmText: t('confirm_delete_block_confirm'),
+            cancelText: t('confirm_delete_block_cancel'),
+            type: 'danger'
+        });
+        
+        if (confirmed) {
             removeBlock(this.id);
             this.remove();
             updateConnections();

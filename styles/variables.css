@@ -1,0 +1,110 @@
+/* ============================================
+   CSS VARIABLES - Design System Tokens
+   ============================================ */
+
+:root {
+    /* === Colors === */
+    /* Primary Palette */
+    --color-primary: #6ec89b;
+    --color-primary-light: #8fd9b3;
+    --color-primary-dark: #5eb585;
+    
+    /* Background Colors */
+    --color-bg-body: #171f25;
+    --color-bg-dark: #1f2d3a;
+    --color-bg-darker: #1a2530;
+    --color-bg-card: #2d3f4f;
+    --color-bg-card-light: #3d4f5f;
+    --color-bg-input: #2a3845;
+    
+    /* Border Colors */
+    --color-border: #4a5f6f;
+    --color-border-dark: #2a3d4d;
+    --color-border-darker: #1a2530;
+    
+    /* Text Colors */
+    --color-text-primary: #e8f0f7;
+    --color-text-secondary: #c8d8e8;
+    --color-text-muted: #8a9fb0;
+    --color-text-disabled: #6a7a8a;
+    
+    /* Status Colors */
+    --color-success: #6ec89b;
+    --color-success-hover: #8edab3;
+    --color-error: #d55a5a;
+    --color-error-hover: #e56a6a;
+    --color-warning: #e5a55a;
+    --color-warning-hover: #f5b56a;
+    --color-info: #5a8ace;
+    
+    /* Neutral Grays */
+    --color-gray-50: #e0e0e0;
+    --color-gray-100: #d8e5f0;
+    --color-gray-200: #c0d0e0;
+    --color-gray-300: #b0c0d0;
+    --color-gray-400: #7a9aaf;
+    --color-gray-500: #6B8292;
+    --color-gray-600: #5a6a7a;
+    --color-gray-700: #4a5a6a;
+    --color-gray-800: #3a4a5a;
+    
+    /* === Spacing === */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 20px;
+    --spacing-2xl: 30px;
+    --spacing-3xl: 40px;
+    
+    /* === Border Radius === */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    
+    /* === Shadows === */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);
+    --shadow-xl: 0 15px 50px rgba(0, 0, 0, 0.7);
+    
+    --shadow-inset-light: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    --shadow-inset-dark: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+    --shadow-inset-darker: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    
+    /* === Transitions === */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.4s ease;
+    --transition-bounce: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* === Typography === */
+    --font-family-base: "Atkinson Hyperlegible Next", sans-serif;
+    --font-family-mono: 'Courier New', monospace;
+    --font-family-ui: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    --font-size-xs: 12px;
+    --font-size-sm: 13px;
+    --font-size-md: 14px;
+    --font-size-lg: 15px;
+    --font-size-xl: 18px;
+    --font-size-2xl: 20px;
+    --font-size-3xl: 24px;
+    
+    /* === Z-Index Layers === */
+    --z-background: 0;
+    --z-connections: 1;
+    --z-blocks: 10;
+    --z-blocks-dragging: 100;
+    --z-toolbar: 1000;
+    --z-dropdown: 1001;
+    --z-selection: 1500;
+    --z-modal: 2000;
+    --z-confirm-modal: 2500;
+    --z-toast: 3000;
+    
+    /* === Layout === */
+    --toolbar-height: 60px;
+    --canvas-top-offset: 60px;
+}

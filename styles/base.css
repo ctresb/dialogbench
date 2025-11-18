@@ -1,0 +1,122 @@
+/* ============================================
+   BASE STYLES - Reset & Global Defaults
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family-base);
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+}
+
+body {
+    overflow: hidden;
+    background: var(--color-bg-body);
+    color: var(--color-gray-50);
+}
+
+/* === Scrollbar Customization === */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: linear-gradient(90deg, var(--color-bg-dark) 0%, var(--color-bg-input) 100%);
+    border-radius: 6px;
+    box-shadow: var(--shadow-inset-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #5a6f7f 0%, #4a5f6f 100%);
+    border-radius: 6px;
+    border: 2px solid var(--color-bg-input);
+    box-shadow: 
+        var(--shadow-sm),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #6a7f8f 0%, #5a6f7f 100%);
+}
+
+/* === Canvas Background === */
+.canvas-background {
+    position: fixed;
+    top: var(--canvas-top-offset);
+    left: 0;
+    width: 100%;
+    height: calc(100% - var(--canvas-top-offset));
+    background: 
+        linear-gradient(90deg, rgba(58, 83, 96, 0.15) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(58, 83, 96, 0.15) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: var(--z-background);
+}
+
+/* === Canvas Container === */
+.canvas {
+    position: fixed;
+    top: var(--canvas-top-offset);
+    left: 0;
+    width: 100%;
+    height: calc(100% - var(--canvas-top-offset));
+    cursor: grab;
+    transform-origin: 0 0;
+    pointer-events: none;
+}
+
+.canvas.grabbing {
+    cursor: grabbing;
+}
+
+.canvas > * {
+    pointer-events: auto;
+}
+
+/* === Connections SVG === */
+.connections-svg {
+    position: fixed;
+    top: var(--canvas-top-offset);
+    left: 0;
+    width: 100%;
+    height: calc(100% - var(--canvas-top-offset));
+    pointer-events: none;
+    z-index: var(--z-connections);
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.connection-line {
+    stroke-width: 3;
+    fill: none;
+    pointer-events: none;
+    vector-effect: non-scaling-stroke;
+    shape-rendering: geometricPrecision;
+    will-change: transform;
+}
+
+/* === Selection Box === */
+.selection-box {
+    position: fixed;
+    background: rgba(75, 110, 132, 0.25);
+    border: 2px solid rgba(80, 120, 148, 0.5);
+    border-radius: var(--radius-sm);
+    pointer-events: none;
+    z-index: var(--z-selection);
+    box-shadow: 
+        0 0 12px rgba(80, 120, 148, 0.3),
+        inset 0 0 20px rgba(80, 120, 148, 0.1);
+}
+
+/* === Divider === */
+.divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--color-border) 50%, transparent 100%);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+    margin: 15px 0;
+}
