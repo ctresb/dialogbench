@@ -8,11 +8,11 @@ import { initDOMElements, elements } from './dom.js';
 import { initCanvas, adjustZoom, resetZoom, applyZoom } from './canvas.js';
 import { initModals } from './modals.js';
 import { initAutocomplete } from './autocomplete.js';
-import { initStorage, loadFromLocalStorage } from './storage.js';
+import { initStorage, loadFromLocalStorage, clearBoard, loadIntroJSON } from './storage.js';
 import { createNewDialog, renderAll } from './blocks.js';
 import { initToast } from './toast.js';
-import { initConfirmModal } from './modal.js';
-import { loadLocales, applyTranslations, setLocale } from './i18n.js';
+import { initConfirmModal, showConfirmModal } from './modal.js';
+import { loadLocales, applyTranslations, setLocale, t } from './i18n.js';
 
 export async function initApp() {
     // Load locales first
@@ -34,7 +34,7 @@ export async function initApp() {
     initCanvas();
     
     // Initialize storage and load saved data
-    loadFromLocalStorage();
+    await loadFromLocalStorage();
     initStorage();
     
     // Initialize modals
@@ -49,11 +49,9 @@ export async function initApp() {
     // Setup keyboard shortcuts
     setupKeyboardShortcuts();
     
-    // Render all blocks or create initial block if empty
+    // Render all blocks (intro or saved data already loaded)
     const dialogData = getDialogData();
-    if (dialogData.blocks.length === 0) {
-        createNewDialog();
-    } else {
+    if (dialogData.blocks.length > 0) {
         renderAll();
     }
     
@@ -66,6 +64,24 @@ function setupToolbar() {
     
     // New dialog button
     newDialogBtn.addEventListener('click', createNewDialog);
+    
+    // Clear board button
+    const clearBtn = document.getElementById('clearBtn');
+    clearBtn.addEventListener('click', async () => {
+        const confirmed = await showConfirmModal({
+            title: t('confirm_clear_board_title'),
+            message: t('confirm_clear_board_message'),
+            confirmText: t('confirm_clear_board_confirm'),
+            cancelText: t('confirm_clear_board_cancel'),
+            type: 'danger'
+        });
+        
+        if (confirmed) {
+            clearBoard();
+            renderAll();
+            applyZoom();
+        }
+    });
     
     // Zoom controls
     zoomInBtn.addEventListener('click', () => adjustZoom(0.1));
@@ -109,9 +125,17 @@ function setupToolbar() {
     });
     
     languageOptions.forEach(option => {
-        option.addEventListener('click', () => {
+        option.addEventListener('click', async () => {
             const locale = option.getAttribute('data-locale');
             setLocale(locale);
+            
+            // Check if there's saved data in localStorage
+            const saved = localStorage.getItem('dialogData');
+            if (!saved) {
+                // No saved data, reload intro in new language
+                await loadIntroJSON();
+            }
+            
             renderAll();
             languageDropdown.classList.remove('active');
         });

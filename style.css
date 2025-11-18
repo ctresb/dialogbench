@@ -57,7 +57,7 @@ body {
         inset 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 
-.toolbar-btn .material-icons {
+.toolbar-btn .material-symbols-rounded {
     font-size: 20px;
 }
 
@@ -113,8 +113,28 @@ body {
     min-width: 40px;
 }
 
-.toolbar-btn-icon .material-icons {
+.toolbar-btn-icon .material-symbols-rounded {
     margin: 0;
+}
+
+.toolbar-btn-danger {
+    background: linear-gradient(180deg, #d55a5a 0%, #b83e3e 100%);
+    border-color: #8e2e2e;
+}
+
+.toolbar-btn-danger:hover {
+    background: linear-gradient(180deg, #e56a6a 0%, #c84e4e 100%);
+    box-shadow: 
+        0 3px 6px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.toolbar-btn-danger:active {
+    transform: translateY(1px);
+    box-shadow: 
+        0 1px 2px rgba(0, 0, 0, 0.4),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .toolbar-divider {
@@ -343,7 +363,7 @@ body {
         inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.delete-block-btn .material-icons {
+.delete-block-btn .material-symbols-rounded {
     font-size: 16px;
 }
 
@@ -422,7 +442,7 @@ body {
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-.copy-line-btn .material-icons {
+.copy-line-btn .material-symbols-rounded {
     font-size: 16px;
 }
 
@@ -547,8 +567,8 @@ body {
         inset 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 
-.edit-btn .material-icons,
-.copy-btn .material-icons {
+.edit-btn .material-symbols-rounded,
+.copy-btn .material-symbols-rounded {
     font-size: 20px;
 }
 
@@ -976,7 +996,7 @@ body {
         inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.btn-delete .material-icons {
+.btn-delete .material-symbols-rounded {
     font-size: 18px;
 }
 
@@ -1316,7 +1336,7 @@ body {
     color: #e8f0f7;
 }
 
-.close-tutorial-btn .material-icons {
+.close-tutorial-btn .material-symbols-rounded {
     font-size: 28px;
 }
 
@@ -1351,7 +1371,7 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-.tutorial-icon .material-icons {
+.tutorial-icon .material-symbols-rounded {
     font-size: 28px;
     color: #6ec89b;
     filter: drop-shadow(0 0 8px rgba(110, 200, 155, 0.4));

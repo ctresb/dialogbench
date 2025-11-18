@@ -1,0 +1,198 @@
+{
+  "blocks": [
+    {
+      "id": 1,
+      "x": 80,
+      "y": 400,
+      "lines": [
+        "¡Hola usuario! ¿Cómo estás?",
+        "¡Este es Dialog Bench!"
+      ],
+      "responses": [
+        {
+          "text": "¡Hola! ¿Qué hace?",
+          "color": "#1cba9b",
+          "target": "#0002"
+        },
+        {
+          "text": "¿Qué es esta aplicación?",
+          "color": "#cd9418",
+          "target": "#0003"
+        }
+      ],
+      "customValues": []
+    },
+    {
+      "id": 2,
+      "x": 660,
+      "y": 0,
+      "lines": [
+        "Bueno, Dialog Bench es una herramienta web que te ayuda a estructurar y visualizar mejor tus diálogos.",
+        "Puede usarse para juegos que tienen muchos personajes y necesitas seguir el flujo.",
+        "¡Puedes crear flujos aquí, agregando líneas de diálogo, como estas que estás leyendo, respuestas e incluso variables!"
+      ],
+      "responses": [
+        {
+          "text": "¡Ah! ¿Entonces yo soy una respuesta?",
+          "color": "#849720",
+          "target": "#0007"
+        },
+        {
+          "text": "¿Puedo usarlo en motores?",
+          "color": "#8631a5",
+          "target": ""
+        }
+      ],
+      "customValues": [
+        {
+          "type": "texto",
+          "name": "set_scene",
+          "value": "scene001",
+          "color": "#537979"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "x": 660,
+      "y": 780,
+      "lines": [
+        "Esta aplicación es una herramienta que puedes usar para visualizar y organizar los diálogos de tu juego.",
+        "Pero no solo juegos, puedes usarla para cualquier cosa que contenga diálogos que quieras mantener organizados."
+      ],
+      "responses": [
+        {
+          "text": "¡Ah, genial! ¡Gracias!",
+          "color": "#a03122",
+          "target": "#0009"
+        }
+      ],
+      "customValues": []
+    },
+    {
+      "id": 7,
+      "x": 1240,
+      "y": -100,
+      "lines": [
+        "¡Sí, lo eres! Jaja, bueno, tú y yo somos solo textos en este menú, así que estamos en el mismo nivel.",
+        "Pero quien necesita leer esto es en realidad alguien que no está en esta pantalla, alguien que está detrás del muro de vidrio."
+      ],
+      "responses": [
+        {
+          "text": "¿Muro de vidrio?",
+          "color": "#2293a0",
+          "target": "#0010"
+        },
+        {
+          "text": "¿A dónde va esto?",
+          "color": "#2270a0",
+          "target": "#0008"
+        },
+        {
+          "text": "No entiendo...",
+          "color": "#a02254",
+          "target": "#0008"
+        }
+      ],
+      "customValues": []
+    },
+    {
+      "id": 8,
+      "x": 1820,
+      "y": 300,
+      "lines": [
+        "Hmm... En realidad, no sé por qué estoy profundizando tanto en esto jaja, ¡pero bueno, está bien!",
+        "De todas formas, ese es el tutorial, usuario, gracias por leer esto (no sé por qué leíste todo, pero...)"
+      ],
+      "responses": [
+        {
+          "text": "¡Sí, gracias usuario!",
+          "color": "#7022a0",
+          "target": ""
+        }
+      ],
+      "customValues": [
+        {
+          "type": "chave",
+          "name": "end",
+          "value": "true",
+          "color": "#223da0"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "x": 1240,
+      "y": 980,
+      "lines": [
+        "¡De nada! Siéntete libre de echar un vistazo a la información haciendo clic en el botón superior derecho con el ℹ️ en él.",
+        "Creo que vas a borrar esto, así que fue un placer conocerte, usuario, espero verte de nuevo algún día..."
+      ],
+      "responses": [
+        {
+          "text": "Gracias, usuario",
+          "color": "#a0228d",
+          "target": ""
+        }
+      ],
+      "customValues": [
+        {
+          "type": "chave",
+          "name": "end",
+          "value": "true",
+          "color": "#2252a0"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "x": 1820,
+      "y": -560,
+      "lines": [
+        "Bueno, no puedo ir muy lejos en esto, pero está más allá de esta pantalla, un lugar que no podemos comprender.",
+        "Un lugar donde todo es posible, donde figuras altas y delgadas construyen máquinas que pueden pensar y crear otras máquinas.",
+        "Y, una de esas figuras delgadas, creó esto y está escribiendo esto ahora mismo, escribiendo mis palabras...",
+        "Espera, si él está escribiendo esto, ¿entonces no tengo libre albedrío? Esto es extraño, no sé nada en este punto.",
+        "Bueno, eso es todo... supongo... Adiós, usuario."
+      ],
+      "responses": [
+        {
+          "text": "¿Estás bien?",
+          "color": "#22a02c",
+          "target": "#0011"
+        },
+        {
+          "text": "Ok... Adiós",
+          "color": "#a02252",
+          "target": ""
+        }
+      ],
+      "customValues": []
+    },
+    {
+      "id": 11,
+      "x": 2300,
+      "y": -560,
+      "lines": [
+        "...",
+        ""
+      ],
+      "responses": [
+        {
+          "text": "...",
+          "color": "#4f6072",
+          "target": ""
+        }
+      ],
+      "customValues": [
+        {
+          "type": "chave",
+          "name": "end",
+          "value": "true",
+          "color": "#2252a0"
+        }
+      ]
+    }
+  ],
+  "nextId": 12
+}

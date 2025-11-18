@@ -56,7 +56,7 @@ export function renderBlock(block) {
         <div class="dialog-header">
             <div class="dialog-id">#${String(block.id).padStart(4, '0')}</div>
             <button class="delete-block-btn" data-block-id="${block.id}">
-                <span class="material-icons">delete</span> <span data-i18n="delete_block">${t('delete_block')}</span>
+                <span class="material-symbols-rounded">delete</span> <span data-i18n="delete_block">${t('delete_block')}</span>
             </button>
         </div>
         
@@ -68,7 +68,7 @@ export function renderBlock(block) {
                         data-line-index="${index}"
                         rows="1">${line}</textarea>
                     <button class="copy-line-btn" data-block-id="${block.id}" data-line-index="${index}" data-i18n-title="copy_text" title="${t('copy_text')}">
-                        <span class="material-icons">content_copy</span>
+                        <span class="material-symbols-rounded">content_copy</span>
                     </button>
                 </div>
             `).join('')}
@@ -86,10 +86,10 @@ export function renderBlock(block) {
                     </button>
                     <div class="item-actions">
                         <button class="edit-btn" data-block-id="${block.id}" data-response-index="${index}">
-                            <span class="material-icons">edit</span>
+                            <span class="material-symbols-rounded">edit</span>
                         </button>
                         <button class="copy-btn" data-block-id="${block.id}" data-response-index="${index}">
-                            <span class="material-icons">content_copy</span>
+                            <span class="material-symbols-rounded">content_copy</span>
                         </button>
                     </div>
                 </div>
@@ -110,10 +110,10 @@ export function renderBlock(block) {
                     </button>
                     <div class="item-actions">
                         <button class="edit-btn" data-block-id="${block.id}" data-custom-index="${index}">
-                            <span class="material-icons">edit</span>
+                            <span class="material-symbols-rounded">edit</span>
                         </button>
                         <button class="copy-btn" data-block-id="${block.id}" data-custom-index="${index}">
-                            <span class="material-icons">content_copy</span>
+                            <span class="material-symbols-rounded">content_copy</span>
                         </button>
                     </div>
                 </div>

@@ -22,7 +22,7 @@
     <meta property="og:title" content="Dialog Bench - Visual Dialogue Editor for Game Developers & Writers">
     <meta property="og:description"
         content="Free online visual dialogue editor for game developers, writers, and storytellers. Create branching dialogue trees with an intuitive drag-and-drop interface. Export as JSON for Unity, Godot, and other game engines.">
-    <meta property="og:image" content="https://dialogbench.com/meta.png">
+    <meta property="og:image" content="https://dialogbench.com/assets/meta.png">
     <meta property="og:image:alt" content="Dialog Bench - Visual Dialogue Tree Editor">
     <meta property="og:site_name" content="Dialog Bench">
     <meta property="og:locale" content="en_US">
@@ -33,7 +33,7 @@
     <meta property="twitter:title" content="Dialog Bench - Visual Dialogue Editor for Game Developers & Writers">
     <meta property="twitter:description"
         content="Free online visual dialogue editor for game developers, writers, and storytellers. Create branching dialogue trees with an intuitive drag-and-drop interface.">
-    <meta property="twitter:image" content="https://dialogbench.com/meta.png">
+    <meta property="twitter:image" content="https://dialogbench.com/assets/meta.png">
     <meta property="twitter:image:alt" content="Dialog Bench - Visual Dialogue Tree Editor">
 
     <!-- Additional SEO -->
@@ -44,9 +44,9 @@
     <meta name="apple-mobile-web-app-title" content="Dialog Bench">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-    <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="favicon.png">
+    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
+    <link rel="icon" href="./assets/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="./assets/favicon.png">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,7 +85,7 @@
       },
       "description": "Free online visual dialogue editor for game developers, writers, and storytellers. Create branching dialogue trees with an intuitive drag-and-drop interface.",
       "url": "https://dialogbench.com",
-      "image": "https://dialogbench.com/meta.png",
+      "image": "https://dialogbench.com/assets/meta.png",
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "5",
@@ -118,6 +118,9 @@
         <button id="newDialogBtn" class="toolbar-btn">
             <span class="material-symbols-rounded">add</span> <span data-i18n="new_block">Novo Bloco</span>
         </button>
+        <button id="clearBtn" class="toolbar-btn toolbar-btn-danger">
+            <span class="material-symbols-rounded">delete</span> <span data-i18n="clear_board">Limpar</span>
+        </button>
         <div class="toolbar-divider"></div>
         <button id="zoomInBtn" class="toolbar-btn">
             <span class="material-symbols-rounded">zoom_in</span>
@@ -145,23 +148,23 @@
             </button>
             <div id="languageDropdown" class="language-dropdown">
                 <button class="language-option" data-locale="pt_br">
-                    <img src="./icons/br.png" alt="Português" class="flag-icon" />
+                    <img src="./assets/icons/br.png" alt="Português" class="flag-icon" />
                     <span>Português</span>
                 </button>
                 <button class="language-option" data-locale="es_es">
-                    <img src="./icons/es.png" alt="Español" class="flag-icon" />
+                    <img src="./assets/icons/es.png" alt="Español" class="flag-icon" />
                     <span>Español</span>
                 </button>
                 <button class="language-option" data-locale="en_us">
-                    <img src="./icons/us.png" alt="English" class="flag-icon" />
+                    <img src="./assets/icons/us.png" alt="English" class="flag-icon" />
                     <span>English</span>
                 </button>
                 <button class="language-option" data-locale="ja_jp">
-                    <img src="./icons/jp.png" alt="日本語" class="flag-icon" />
+                    <img src="./assets/icons/jp.png" alt="日本語" class="flag-icon" />
                     <span>日本語</span>
                 </button>
                 <button class="language-option" data-locale="zh_cn">
-                    <img src="./icons/cn.png" alt="中文" class="flag-icon" />
+                    <img src="./assets/icons/cn.png" alt="中文" class="flag-icon" />
                     <span>中文</span>
                 </button>
             </div>

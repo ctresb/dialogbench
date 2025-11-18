@@ -65,7 +65,12 @@
     "tutorial_tip_1": "Use cores diferentes para categorizar tipos de respostas (hostil, amigável, neutro).",
     "tutorial_tip_2": "Mantenha IDs de blocos organizados para facilitar a conexão entre diálogos.",
     "tutorial_tip_3": "Copie textos usando os botões de copiar ao lado de cada elemento.",
-    "tutorial_tip_4": "Use variáveis para marcar pontos importantes na narrativa."
+    "tutorial_tip_4": "Use variáveis para marcar pontos importantes na narrativa.",
+    "clear_board": "Limpar",
+    "confirm_clear_board_title": "Limpar Área de Trabalho",
+    "confirm_clear_board_message": "Tem certeza que deseja limpar toda a área de trabalho? Esta ação não pode ser desfeita.",
+    "confirm_clear_board_confirm": "Sim, Limpar Tudo",
+    "confirm_clear_board_cancel": "Cancelar"
   },
   "es_es": {
     "app_title": "Dialog Bench",
@@ -133,7 +138,12 @@
     "tutorial_tip_1": "Use diferentes colores para categorizar tipos de respuestas (hostil, amigable, neutral).",
     "tutorial_tip_2": "Mantenga los IDs de bloques organizados para facilitar la conexión entre diálogos.",
     "tutorial_tip_3": "Copie textos usando los botones de copiar al lado de cada elemento.",
-    "tutorial_tip_4": "Use variables para marcar puntos importantes en la narrativa."
+    "tutorial_tip_4": "Use variables para marcar puntos importantes en la narrativa.",
+    "clear_board": "Limpiar",
+    "confirm_clear_board_title": "Limpiar Área de Trabajo",
+    "confirm_clear_board_message": "¿Está seguro de que desea limpiar toda el área de trabajo? Esta acción no se puede deshacer.",
+    "confirm_clear_board_confirm": "Sí, Limpiar Todo",
+    "confirm_clear_board_cancel": "Cancelar"
   },
   "en_us": {
     "app_title": "Dialog Bench",
@@ -201,7 +211,12 @@
     "tutorial_tip_1": "Use different colors to categorize response types (hostile, friendly, neutral).",
     "tutorial_tip_2": "Keep block IDs organized to facilitate connections between dialogues.",
     "tutorial_tip_3": "Copy texts using the copy buttons next to each element.",
-    "tutorial_tip_4": "Use variables to mark important points in the narrative."
+    "tutorial_tip_4": "Use variables to mark important points in the narrative.",
+    "clear_board": "Clear",
+    "confirm_clear_board_title": "Clear Workspace",
+    "confirm_clear_board_message": "Are you sure you want to clear the entire workspace? This action cannot be undone.",
+    "confirm_clear_board_confirm": "Yes, Clear All",
+    "confirm_clear_board_cancel": "Cancel"
   },
   "ja_jp": {
     "app_title": "Dialog Bench",
@@ -269,7 +284,12 @@
     "tutorial_tip_1": "異なる色を使用して応答タイプ（敵対的、友好的、中立的）を分類します。",
     "tutorial_tip_2": "ブロックIDを整理して、会話間の接続を容易にします。",
     "tutorial_tip_3": "各要素の横にあるコピーボタンを使用してテキストをコピーします。",
-    "tutorial_tip_4": "変数を使用して物語の重要なポイントをマークします。"
+    "tutorial_tip_4": "変数を使用して物語の重要なポイントをマークします。",
+    "clear_board": "クリア",
+    "confirm_clear_board_title": "ワークスペースをクリア",
+    "confirm_clear_board_message": "ワークスペース全体をクリアしてもよろしいですか？この操作は元に戻せません。",
+    "confirm_clear_board_confirm": "はい、すべてクリア",
+    "confirm_clear_board_cancel": "キャンセル"
   },
   "zh_cn": {
     "app_title": "Dialog Bench",
@@ -337,6 +357,11 @@
     "tutorial_tip_1": "使用不同颜色来分类回应类型（敌对、友好、中立）。",
     "tutorial_tip_2": "保持块ID的组织性以便于对话之间的连接。",
     "tutorial_tip_3": "使用每个元素旁边的复制按钮复制文本。",
-    "tutorial_tip_4": "使用变量标记叙事中的重要点。"
+    "tutorial_tip_4": "使用变量标记叙事中的重要点。",
+    "clear_board": "清除",
+    "confirm_clear_board_title": "清除工作区",
+    "confirm_clear_board_message": "您确定要清除整个工作区吗？此操作无法撤消。",
+    "confirm_clear_board_confirm": "是的，全部清除",
+    "confirm_clear_board_cancel": "取消"
   }
 }

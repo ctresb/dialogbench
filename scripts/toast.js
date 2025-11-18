@@ -29,7 +29,7 @@ export function showToast(message, type = 'info', duration = 3000) {
     
     // Add icon based on type
     const icon = document.createElement('span');
-    icon.className = 'material-icons toast-icon';
+    icon.className = 'material-symbols-rounded toast-icon';
     icon.textContent = getIconForType(type);
     
     const text = document.createElement('span');

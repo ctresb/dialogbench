@@ -8,7 +8,7 @@ import { elements } from './dom.js';
 import { renderAll } from './blocks.js';
 import { applyZoom } from './canvas.js';
 import { toast } from './toast.js';
-import { t } from './i18n.js';
+import { t, getCurrentLocale } from './i18n.js';
 
 export function initStorage() {
     const { saveBtn, loadBtn, fileInput } = elements;
@@ -28,7 +28,7 @@ export function autoSave() {
     localStorage.setItem('dialogData', JSON.stringify(dataToSave));
 }
 
-export function loadFromLocalStorage() {
+export async function loadFromLocalStorage() {
     const saved = localStorage.getItem('dialogData');
     
     if (saved) {
@@ -39,7 +39,50 @@ export function loadFromLocalStorage() {
         data.canvasOffset = { x: 0, y: 0 };
         
         setDialogData(data);
+    } else {
+        // No save found, load intro
+        await loadIntroJSON();
     }
+}
+
+export async function loadIntroJSON() {
+    try {
+        const locale = getCurrentLocale();
+        
+        // Map locale to intro file
+        const localeMap = {
+            'pt_br': './intro/intro_pt.json',
+            'es_es': './intro/intro_es.json',
+            'en_us': './intro/intro_en.json',
+            'ja_jp': './intro/intro_jp.json',
+            'zh_cn': './intro/intro_cn.json'
+        };
+        
+        const introFile = localeMap[locale] || 'intro_en.json';
+        const response = await fetch(`./${introFile}`);
+        const data = await response.json();
+        
+        // Initialize zoom and canvasOffset to defaults
+        data.zoom = 1;
+        data.canvasOffset = { x: 0, y: 0 };
+        
+        setDialogData(data);
+    } catch (error) {
+        console.log('No intro file found, starting with empty board');
+    }
+}
+
+export function clearBoard() {
+    // Clear the board completely
+    const emptyData = {
+        blocks: [],
+        nextId: 1,
+        zoom: 1,
+        canvasOffset: { x: 0, y: 0 }
+    };
+    
+    setDialogData(emptyData);
+    localStorage.removeItem('dialogData');
 }
 
 function saveToJSON() {

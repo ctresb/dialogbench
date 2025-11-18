@@ -60,7 +60,7 @@ export function showConfirmModal(options = {}) {
         header.className = 'confirm-modal-header';
 
         const icon = document.createElement('span');
-        icon.className = 'material-icons confirm-modal-icon';
+        icon.className = 'material-symbols-rounded confirm-modal-icon';
         icon.textContent = getIconForType(type);
 
         const titleEl = document.createElement('h3');

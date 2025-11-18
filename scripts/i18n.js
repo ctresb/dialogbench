@@ -11,7 +11,7 @@ let translations = {};
  */
 export async function loadLocales() {
     try {
-        const response = await fetch('./locales.json');
+        const response = await fetch('./locales/locales.json');
         translations = await response.json();
         
         // Load saved locale preference
