@@ -31,17 +31,31 @@ export function updateConnections() {
         const tempSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         
         dialogData.blocks.forEach(block => {
-            block.responses.forEach((response, responseIndex) => {
-                if (response.target) {
-                    const targetId = parseInt(response.target.replace('#', ''));
-                    const targetBlock = dialogData.blocks.find(b => b.id === targetId);
-                    
-                    if (targetBlock) {
-                        const line = drawConnection(block, targetBlock, response.color, responseIndex);
-                        if (line) tempSvg.appendChild(line);
+            // Process dialog blocks with responses
+            if (block.responses && block.responses.length > 0) {
+                block.responses.forEach((response, responseIndex) => {
+                    if (response.target) {
+                        const targetId = parseInt(response.target.replace('#', ''));
+                        const targetBlock = dialogData.blocks.find(b => b.id === targetId);
+                        
+                        if (targetBlock) {
+                            const line = drawConnection(block, targetBlock, response.color, responseIndex);
+                            if (line) tempSvg.appendChild(line);
+                        }
                     }
+                });
+            }
+            
+            // Process event blocks with target
+            if (block.type === 'event' && block.target) {
+                const targetId = parseInt(block.target.replace('#', ''));
+                const targetBlock = dialogData.blocks.find(b => b.id === targetId);
+                
+                if (targetBlock) {
+                    const line = drawConnection(block, targetBlock, block.backgroundColor, 0);
+                    if (line) tempSvg.appendChild(line);
                 }
-            });
+            }
         });
         
         // Batch DOM update

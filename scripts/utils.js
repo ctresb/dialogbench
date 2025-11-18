@@ -5,7 +5,11 @@
 
 import { elements } from './dom.js';
 
-export function getRandomColor() {
+/**
+ * Generate a random color with consistent saturation and lightness
+ * Used for responses and events to maintain visual consistency
+ */
+export function generateColor() {
     // Base color: HSL(46, 65%, 38%)
     // Vary only HUE (0-360)
     const hue = Math.floor(Math.random() * 360);
@@ -14,6 +18,9 @@ export function getRandomColor() {
     
     return hslToHex(hue, saturation, lightness);
 }
+
+// Alias for backwards compatibility
+export const getRandomColor = generateColor;
 
 function hslToHex(h, s, l) {
     l /= 100;

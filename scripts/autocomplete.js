@@ -16,6 +16,11 @@ export function initAutocomplete() {
     editResponseTargetInput.addEventListener('input', (e) => updateAutocomplete(e.target, 'editResponseTargetList'));
     editResponseTargetInput.addEventListener('focus', (e) => updateAutocomplete(e.target, 'editResponseTargetList'));
     
+    // Edit event target autocomplete
+    const editEventTargetInput = document.getElementById('editEventTarget');
+    editEventTargetInput.addEventListener('input', (e) => updateAutocomplete(e.target, 'editEventTargetList'));
+    editEventTargetInput.addEventListener('focus', (e) => updateAutocomplete(e.target, 'editEventTargetList'));
+    
     // Close autocomplete when clicking outside
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.autocomplete-wrapper')) {
@@ -49,11 +54,19 @@ function updateAutocomplete(input, listId) {
                 item.classList.add('selected');
             }
             
-            const preview = block.lines[0] ? block.lines[0].substring(0, 50) : 'Sem texto';
+            // Get preview based on block type
+            let preview;
+            let typeIndicator = '';
+            if (block.type === 'event') {
+                preview = block.title ? block.title.substring(0, 50) : 'Evento sem título';
+                typeIndicator = '<span style="color: #9b59b6; font-weight: bold;">[EVENTO]</span> ';
+            } else {
+                preview = block.lines && block.lines[0] ? block.lines[0].substring(0, 50) : 'Sem texto';
+            }
             
             item.innerHTML = `
                 <div class="autocomplete-item-id">${blockId}</div>
-                <div class="autocomplete-item-preview">${preview}...</div>
+                <div class="autocomplete-item-preview">${typeIndicator}${preview}...</div>
             `;
             
             item.addEventListener('click', () => {

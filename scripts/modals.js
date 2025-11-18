@@ -32,6 +32,11 @@ export function initModals() {
     document.getElementById('deleteCustom').addEventListener('click', deleteCustomValue);
     document.getElementById('cancelEditCustom').addEventListener('click', () => closeModal(editCustomModal));
     
+    // Edit Event modal
+    const editEventModal = document.getElementById('editEventModal');
+    document.getElementById('confirmEditEvent').addEventListener('click', confirmEditEvent);
+    document.getElementById('cancelEditEvent').addEventListener('click', () => closeModal(editEventModal));
+    
     // Variable type radio buttons for add modal
     const variableTypeRadios = document.querySelectorAll('input[name="variableType"]');
     variableTypeRadios.forEach(radio => {
@@ -321,4 +326,57 @@ function openModal(modal) {
 
 function closeModal(modal) {
     modal.classList.remove('active');
+}
+
+// Event editing functions
+export function openEditEventModal(blockId) {
+    const editEventModal = document.getElementById('editEventModal');
+    const editing = getEditingState();
+    
+    editing.currentEditingItem = { blockId, type: 'event' };
+    editing.selectedTarget = null;
+    
+    const block = getBlock(blockId);
+    if (block) {
+        document.getElementById('editEventTitle').value = block.title;
+        document.getElementById('editEventColor').value = block.backgroundColor;
+        document.getElementById('editEventTarget').value = block.target || '';
+        
+        if (block.target) {
+            editing.selectedTarget = block.target;
+        }
+        
+        const list = document.getElementById('editEventTargetList');
+        if (list) {
+            list.classList.remove('active');
+        }
+    }
+    
+    openModal(editEventModal);
+}
+
+function confirmEditEvent() {
+    const editEventModal = document.getElementById('editEventModal');
+    const editing = getEditingState();
+    
+    const title = document.getElementById('editEventTitle').value.trim();
+    const color = document.getElementById('editEventColor').value;
+    const target = editing.selectedTarget || document.getElementById('editEventTarget').value.trim();
+    
+    if (!title) {
+        alert(t('alert_event_title_required'));
+        return;
+    }
+    
+    const block = getBlock(editing.currentEditingItem.blockId);
+    if (block) {
+        block.title = title;
+        block.backgroundColor = color;
+        block.target = target || null;
+        renderBlock(block);
+        updateConnections();
+        autoSave();
+    }
+    
+    closeModal(editEventModal);
 }

@@ -118,6 +118,9 @@
         <button id="newDialogBtn" class="toolbar-btn">
             <span class="material-symbols-rounded">add</span> <span data-i18n="new_block">Novo Bloco</span>
         </button>
+        <button id="newEventBtn" class="toolbar-btn">
+            <span class="material-symbols-rounded">bolt</span> <span data-i18n="new_event">Novo Evento</span>
+        </button>
         <button id="clearBtn" class="toolbar-btn toolbar-btn-danger">
             <span class="material-symbols-rounded">delete</span> <span data-i18n="clear_board">Limpar</span>
         </button>
@@ -324,6 +327,32 @@
                 <button id="deleteCustom" class="btn-delete">
                     <span class="material-symbols-rounded">delete</span>
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar Evento -->
+    <div id="editEventModal" class="modal">
+        <div class="modal-content">
+            <h3 data-i18n="edit_event">Editar Evento</h3>
+            
+            <label data-i18n="event_title_placeholder">Nome do evento:</label>
+            <input type="text" id="editEventTitle" data-i18n-placeholder="event_title_placeholder"
+                placeholder="Nome do evento">
+
+            <label data-i18n="background_color">Cor de Fundo:</label>
+            <input type="color" id="editEventColor">
+
+            <label data-i18n="connect_to_block">Conectar ao Bloco:</label>
+            <div class="autocomplete-wrapper">
+                <input type="text" id="editEventTarget" data-i18n-placeholder="search_placeholder"
+                    placeholder="Digite para buscar..." autocomplete="off">
+                <div id="editEventTargetList" class="autocomplete-list"></div>
+            </div>
+
+            <div class="modal-buttons">
+                <button id="confirmEditEvent" class="btn-confirm" data-i18n="confirm">Confirmar</button>
+                <button id="cancelEditEvent" class="btn-cancel" data-i18n="cancel">Cancelar</button>
             </div>
         </div>
     </div>

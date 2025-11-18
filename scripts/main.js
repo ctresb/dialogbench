@@ -9,7 +9,7 @@ import { initCanvas, adjustZoom, resetZoom, applyZoom } from './canvas.js';
 import { initModals } from './modals.js';
 import { initAutocomplete } from './autocomplete.js';
 import { initStorage, loadFromLocalStorage, clearBoard, loadIntroJSON } from './storage.js';
-import { createNewDialog, renderAll } from './blocks.js';
+import { createNewDialog, createNewEvent, renderAll } from './blocks.js';
 import { initToast } from './toast.js';
 import { initConfirmModal, showConfirmModal } from './modal.js';
 import { loadLocales, applyTranslations, setLocale, t } from './i18n.js';
@@ -64,6 +64,10 @@ function setupToolbar() {
     
     // New dialog button
     newDialogBtn.addEventListener('click', createNewDialog);
+    
+    // New event button
+    const newEventBtn = document.getElementById('newEventBtn');
+    newEventBtn.addEventListener('click', createNewEvent);
     
     // Clear board button
     const clearBtn = document.getElementById('clearBtn');
@@ -155,6 +159,11 @@ function setupKeyboardShortcuts() {
         if (e.shiftKey && e.key === 'N') {
             e.preventDefault();
             createNewDialog();
+        }
+        // Shift + E: New event
+        if (e.shiftKey && e.key === 'E') {
+            e.preventDefault();
+            createNewEvent();
         }
     });
 }

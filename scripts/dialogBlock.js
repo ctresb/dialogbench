@@ -340,6 +340,7 @@ export class DialogBlock extends Block {
     toJSON() {
         return {
             ...super.toJSON(),
+            type: 'dialog',
             lines: this.lines,
             responses: this.responses,
             customValues: this.customValues

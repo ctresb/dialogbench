@@ -1469,3 +1469,111 @@ body {
 .tutorial-content::-webkit-scrollbar-thumb:hover {
     background: rgba(90, 122, 143, 0.7);
 }
+
+/* Event Block Styles */
+.event-block-inner {
+    padding: 15px;
+    padding-top: 0;
+    border-radius:8px;
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.event-title-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding-top: 15px;
+}
+
+.event-title {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    color: #fff;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    flex: 1;
+    min-width: 0;
+    height: 42px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+    word-break: break-word;
+    display: flex;
+    align-items: center;
+}
+
+.event-title:hover {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.event-title-section .item-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.event-block-inner .divider {
+    background: rgba(255, 255, 255, 0.15);
+    margin: 15px 0;
+}
+
+/* Event Connection Styles */
+.event-connection-section {
+    margin-bottom: 15px;
+}
+
+.event-connection-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.event-connection-btn {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    text-align: left;
+    cursor: default;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.event-connection-item.has-connection .event-connection-btn {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    box-shadow: 
+        0 3px 6px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.event-connection-btn .material-symbols-rounded {
+    font-size: 20px;
+}
+
+.event-connection-btn .connection-text {
+    flex: 1;
+    font-style: italic;
+}
+
+.event-connection-item.has-connection .connection-text {
+    font-style: normal;
+    font-weight: 500;
+}
