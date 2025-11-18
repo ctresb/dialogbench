@@ -40,6 +40,11 @@ export function initModals() {
     document.getElementById('confirmEditEvent').addEventListener('click', confirmEditEvent);
     document.getElementById('cancelEditEvent').addEventListener('click', () => closeModal(editEventModal));
     
+    // Edit Logic modal
+    const editLogicModal = document.getElementById('editLogicModal');
+    document.getElementById('confirmEditLogic').addEventListener('click', confirmEditLogic);
+    document.getElementById('cancelEditLogic').addEventListener('click', () => closeModal(editLogicModal));
+    
     // Variable type radio buttons for add modal
     const variableTypeRadios = document.querySelectorAll('input[name="variableType"]');
     variableTypeRadios.forEach(radio => {
@@ -76,8 +81,16 @@ export function initModals() {
         }
     });
     
+    // Initialize variable name autocomplete for logic modal
+    initVariableAutocomplete('editLogicVariable', 'editLogicVariableList', (variable) => {
+        if (!variable.isNew) {
+            // Existing variable - just set the name
+            document.getElementById('editLogicVariable').value = variable.name;
+        }
+    });
+    
     // Prevent wheel events from propagating to canvas on all modals
-    const allModals = [responseModal, customModal, editResponseModal, editCustomModal, editEventModal];
+    const allModals = [responseModal, customModal, editResponseModal, editCustomModal, editEventModal, editLogicModal];
     allModals.forEach(modal => {
         if (modal) {
             modal.addEventListener('wheel', (e) => {
@@ -510,4 +523,72 @@ function confirmEditEvent() {
     }
     
     closeModal(editEventModal);
+}
+
+// Logic editing functions
+export function openEditLogicModal(blockId) {
+    const editLogicModal = document.getElementById('editLogicModal');
+    const editing = getEditingState();
+    
+    editing.currentEditingItem = { blockId, type: 'logic' };
+    editing.selectedTarget = null;
+    
+    const block = getBlock(blockId);
+    if (block) {
+        document.getElementById('editLogicVariable').value = block.variable || '';
+        document.getElementById('editLogicOperator').value = block.operator || 'equals';
+        document.getElementById('editLogicValue').value = block.compareValue || '';
+        document.getElementById('editLogicColor').value = block.backgroundColor || '#e67e22';
+        document.getElementById('editLogicTargetTrue').value = block.targetTrue || '';
+        document.getElementById('editLogicTargetFalse').value = block.targetFalse || '';
+        
+        // Clear autocomplete lists
+        const listTrue = document.getElementById('editLogicTargetTrueList');
+        const listFalse = document.getElementById('editLogicTargetFalseList');
+        const listVariable = document.getElementById('editLogicVariableList');
+        
+        if (listTrue) listTrue.classList.remove('active');
+        if (listFalse) listFalse.classList.remove('active');
+        if (listVariable) listVariable.classList.remove('active');
+    }
+    
+    openModal(editLogicModal);
+}
+
+function confirmEditLogic() {
+    const editLogicModal = document.getElementById('editLogicModal');
+    const editing = getEditingState();
+    
+    const variable = document.getElementById('editLogicVariable').value.trim();
+    const operator = document.getElementById('editLogicOperator').value;
+    const compareValue = document.getElementById('editLogicValue').value.trim();
+    const color = document.getElementById('editLogicColor').value;
+    const targetTrue = document.getElementById('editLogicTargetTrue').value.trim();
+    const targetFalse = document.getElementById('editLogicTargetFalse').value.trim();
+    
+    if (!variable) {
+        showToast(t('alert_logic_variable_required'), 'warning');
+        return;
+    }
+    
+    if (!compareValue) {
+        showToast(t('alert_logic_value_required'), 'warning');
+        return;
+    }
+    
+    const block = getBlock(editing.currentEditingItem.blockId);
+    if (block) {
+        block.variable = variable;
+        block.operator = operator;
+        block.compareValue = compareValue;
+        block.backgroundColor = color;
+        block.targetTrue = targetTrue || null;
+        block.targetFalse = targetFalse || null;
+        autoSave();
+        // Force re-render to update the UI immediately
+        renderBlock(block);
+        updateConnections();
+    }
+    
+    closeModal(editLogicModal);
 }

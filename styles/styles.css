@@ -20,6 +20,7 @@
 @import './toolbar.css';
 @import './blocks.css';
 @import './event-block.css';
+@import './logic-block.css';
 @import './modal.css';
 @import './confirm-modal.css';
 @import './toast.css';

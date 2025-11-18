@@ -56,6 +56,31 @@ export function updateConnections() {
                     if (line) tempSvg.appendChild(line);
                 }
             }
+            
+            // Process logic blocks with true/false branches
+            if (block.type === 'logic') {
+                // True branch connection (green tint)
+                if (block.targetTrue) {
+                    const targetId = parseInt(block.targetTrue.replace('#', ''));
+                    const targetBlock = dialogData.blocks.find(b => b.id === targetId);
+                    
+                    if (targetBlock) {
+                        const line = drawConnection(block, targetBlock, '#2ecc71', 0, 'true');
+                        if (line) tempSvg.appendChild(line);
+                    }
+                }
+                
+                // False branch connection (red tint)
+                if (block.targetFalse) {
+                    const targetId = parseInt(block.targetFalse.replace('#', ''));
+                    const targetBlock = dialogData.blocks.find(b => b.id === targetId);
+                    
+                    if (targetBlock) {
+                        const line = drawConnection(block, targetBlock, '#e74c3c', 1, 'false');
+                        if (line) tempSvg.appendChild(line);
+                    }
+                }
+            }
         });
         
         // Batch DOM update
@@ -161,7 +186,7 @@ function createNeonColors(color) {
     return result;
 }
 
-function drawConnection(fromBlock, toBlock, color, responseIndex) {
+function drawConnection(fromBlock, toBlock, color, responseIndex, branch = null) {
     const fromEl = document.getElementById(`block-${fromBlock.id}`);
     const toEl = document.getElementById(`block-${toBlock.id}`);
     
@@ -173,7 +198,16 @@ function drawConnection(fromBlock, toBlock, color, responseIndex) {
     
     // Calculate positions considering 60px toolbar
     const fromX = fromRect.right;
-    const fromY = fromRect.top + (fromRect.height / 2) + (responseIndex * 50) - 60;
+    let fromY;
+    
+    // For logic blocks, offset true/false branches differently
+    if (branch === 'true') {
+        fromY = fromRect.top + (fromRect.height / 3) - 60;
+    } else if (branch === 'false') {
+        fromY = fromRect.top + (2 * fromRect.height / 3) - 60;
+    } else {
+        fromY = fromRect.top + (fromRect.height / 2) + (responseIndex * 50) - 60;
+    }
     
     const toX = toRect.left;
     const toY = toRect.top + (toRect.height / 2) - 60;

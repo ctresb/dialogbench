@@ -6,6 +6,7 @@
 import { addBlock, getNextId, getDialogData } from './state.js';
 import { DialogBlock } from './dialogBlock.js';
 import { EventBlock } from './eventBlock.js';
+import { LogicBlock } from './logicBlock.js';
 import { updateConnections } from './connections.js';
 import { autoSave } from './storage.js';
 import { generateColor } from './utils.js';
@@ -20,7 +21,14 @@ const blockInstances = new Map();
 function getBlockInstance(blockData) {
     if (!blockInstances.has(blockData.id)) {
         // Determine which class to instantiate based on block type
-        const BlockClass = blockData.type === 'event' ? EventBlock : DialogBlock;
+        let BlockClass;
+        if (blockData.type === 'event') {
+            BlockClass = EventBlock;
+        } else if (blockData.type === 'logic') {
+            BlockClass = LogicBlock;
+        } else {
+            BlockClass = DialogBlock;
+        }
         const instance = new BlockClass(blockData);
         blockInstances.set(blockData.id, instance);
     }
@@ -81,6 +89,36 @@ export function createNewEvent() {
         title: t('default_event_title'),
         backgroundColor: generateColor(),
         customValues: []
+    };
+    
+    addBlock(newBlockData);
+    renderBlock(newBlockData);
+    autoSave();
+}
+
+export function createNewLogic() {
+    const dialogData = getDialogData();
+    
+    // Find rightmost block
+    let maxX = 0;
+    if (dialogData.blocks.length > 0) {
+        maxX = Math.max(...dialogData.blocks.map(b => b.x));
+        maxX += 390; // 320px block width + 50px margin
+    } else {
+        maxX = 100;
+    }
+    
+    const newBlockData = {
+        id: getNextId(),
+        type: 'logic',
+        x: maxX,
+        y: 100,
+        variable: '',
+        operator: 'equals',
+        compareValue: '',
+        targetTrue: null,
+        targetFalse: null,
+        backgroundColor: '#e67e22'
     };
     
     addBlock(newBlockData);

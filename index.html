@@ -109,10 +109,10 @@
     <div class="toolbar">
         <img src="./assets/logo.svg" class="logo" />
         <button id="saveBtn" class="toolbar-btn">
-            <span class="material-symbols-rounded">save</span> <span data-i18n="save_json">Salvar JSON</span>
+            <span class="material-symbols-rounded">save</span> <span data-i18n="save_json">Salvar</span>
         </button>
         <button id="loadBtn" class="toolbar-btn">
-            <span class="material-symbols-rounded">folder_open</span> <span data-i18n="load_json">Carregar JSON</span>
+            <span class="material-symbols-rounded">folder_open</span> <span data-i18n="load_json">Carregar</span>
         </button>
         <input type="file" id="fileInput" accept=".json" style="display: none;">
         <button id="newDialogBtn" class="toolbar-btn">
@@ -120,6 +120,9 @@
         </button>
         <button id="newEventBtn" class="toolbar-btn">
             <span class="material-symbols-rounded">bolt</span> <span data-i18n="new_event">Novo Evento</span>
+        </button>
+        <button id="newLogicBtn" class="toolbar-btn">
+            <span class="material-symbols-rounded">flowchart</span> <span data-i18n="new_logic">Nova Lógica</span>
         </button>
         <button id="clearBtn" class="toolbar-btn toolbar-btn-danger">
             <span class="material-symbols-rounded">mop</span> <span data-i18n="clear_board">Limpar</span>
@@ -363,6 +366,58 @@
         </div>
     </div>
 
+    <!-- Modal para editar Lógica -->
+    <div id="editLogicModal" class="modal">
+        <div class="modal-content">
+            <h3 data-i18n="edit_logic">Editar Lógica</h3>
+            
+            <label data-i18n="logic_variable">Variável:</label>
+            <div class="autocomplete-wrapper">
+                <input type="text" id="editLogicVariable" data-i18n-placeholder="variable_name_placeholder"
+                    placeholder="Nome da variável" autocomplete="off">
+                <div id="editLogicVariableList" class="autocomplete-list"></div>
+            </div>
+
+            <label data-i18n="logic_operator">Operador:</label>
+            <select id="editLogicOperator">
+                <option value="equals" data-i18n="operator_equals">Igual (==)</option>
+                <option value="not_equals" data-i18n="operator_not_equals">Diferente (!=)</option>
+                <option value="greater" data-i18n="operator_greater">Maior (>)</option>
+                <option value="less" data-i18n="operator_less">Menor (<)</option>
+                <option value="greater_equals" data-i18n="operator_greater_equals">Maior ou Igual (>=)</option>
+                <option value="less_equals" data-i18n="operator_less_equals">Menor ou Igual (<=)</option>
+            </select>
+
+            <label data-i18n="logic_value">Valor de Comparação:</label>
+            <input type="text" id="editLogicValue" data-i18n-placeholder="logic_value_placeholder"
+                placeholder="Valor para comparar">
+
+            <label data-i18n="background_color">Cor de Fundo:</label>
+            <input type="color" id="editLogicColor" value="#e67e22">
+
+            <div class="divider"></div>
+
+            <label data-i18n="logic_true_connection">Se Verdadeiro - Conectar ao Bloco:</label>
+            <div class="autocomplete-wrapper">
+                <input type="text" id="editLogicTargetTrue" data-i18n-placeholder="search_placeholder"
+                    placeholder="Digite para buscar..." autocomplete="off">
+                <div id="editLogicTargetTrueList" class="autocomplete-list"></div>
+            </div>
+
+            <label data-i18n="logic_false_connection">Se Falso - Conectar ao Bloco:</label>
+            <div class="autocomplete-wrapper">
+                <input type="text" id="editLogicTargetFalse" data-i18n-placeholder="search_placeholder"
+                    placeholder="Digite para buscar..." autocomplete="off">
+                <div id="editLogicTargetFalseList" class="autocomplete-list"></div>
+            </div>
+
+            <div class="modal-buttons">
+                <button id="confirmEditLogic" class="btn-confirm" data-i18n="confirm">Confirmar</button>
+                <button id="cancelEditLogic" class="btn-cancel" data-i18n="cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal de Tutorial -->
     <div id="tutorialModal" class="modal">
         <div class="modal-content tutorial-modal-content">
@@ -461,7 +516,7 @@
                     </div>
                     <div class="tutorial-text">
                         <h3 data-i18n="tutorial_save_load_title">Salvar e Carregar</h3>
-                        <p data-i18n="tutorial_save_load_desc">Use "Salvar JSON" para exportar seu trabalho. "Carregar
+                        <p data-i18n="tutorial_save_load_desc">Use "Salvar" para exportar seu trabalho. "Carregar
                             JSON" permite importar projetos salvos. Seu trabalho é automaticamente salvo localmente.</p>
                     </div>
                 </div>

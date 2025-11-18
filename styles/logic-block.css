@@ -1,0 +1,170 @@
+/* ============================================
+   LOGIC BLOCK COMPONENT STYLES
+   ============================================ */
+
+.logic-block-inner {
+    padding: 15px;
+    padding-top: 0;
+    border-radius: var(--radius-md);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.logic-condition-section {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    padding-top: 15px;
+}
+
+.logic-label {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--radius-md);
+    color: #fff;
+    padding: 8px 12px;
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    user-select: none;
+    white-space: nowrap;
+}
+
+.logic-condition {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--radius-md);
+    color: #fff;
+    padding: var(--spacing-md);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    flex: 1;
+    min-width: 0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.logic-condition:hover {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.logic-variable {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+}
+
+.logic-operator {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+}
+
+.logic-value {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+}
+
+.logic-condition-section .item-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.logic-branch-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding-top: 15px;
+}
+
+.logic-branch {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.logic-branch-label {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--radius-md);
+    color: #fff;
+    padding: 8px 12px;
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    user-select: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 60px;
+    text-align: center;
+}
+
+.logic-branch-true .logic-branch-label {
+    background: rgba(46, 204, 113, 0.3);
+    border-color: rgba(46, 204, 113, 0.5);
+}
+
+.logic-branch-false .logic-branch-label {
+    background: rgba(231, 76, 60, 0.3);
+    border-color: rgba(231, 76, 60, 0.5);
+}
+
+.logic-branch .logic-connection {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--radius-md);
+    color: #fff;
+    padding: 8px 12px;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    flex: 1;
+    min-width: 0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    user-select: none;
+    word-break: break-word;
+}
+
+.logic-branch .logic-connection:hover {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.logic-branch .logic-connection.has-connection {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.35);
+    font-weight: 600;
+}
+
+.logic-branch .item-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+/* Divider between sections */
+.logic-block-inner .divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 12px 0;
+}

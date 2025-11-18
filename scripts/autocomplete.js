@@ -21,6 +21,16 @@ export function initAutocomplete() {
     editEventTargetInput.addEventListener('input', (e) => updateAutocomplete(e.target, 'editEventTargetList'));
     editEventTargetInput.addEventListener('focus', (e) => updateAutocomplete(e.target, 'editEventTargetList'));
     
+    // Edit logic target true autocomplete
+    const editLogicTargetTrueInput = document.getElementById('editLogicTargetTrue');
+    editLogicTargetTrueInput.addEventListener('input', (e) => updateAutocomplete(e.target, 'editLogicTargetTrueList'));
+    editLogicTargetTrueInput.addEventListener('focus', (e) => updateAutocomplete(e.target, 'editLogicTargetTrueList'));
+    
+    // Edit logic target false autocomplete
+    const editLogicTargetFalseInput = document.getElementById('editLogicTargetFalse');
+    editLogicTargetFalseInput.addEventListener('input', (e) => updateAutocomplete(e.target, 'editLogicTargetFalseList'));
+    editLogicTargetFalseInput.addEventListener('focus', (e) => updateAutocomplete(e.target, 'editLogicTargetFalseList'));
+    
     // Close autocomplete when clicking outside
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.autocomplete-wrapper')) {
