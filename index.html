@@ -4,55 +4,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Primary Meta Tags -->
     <title>Dialog Bench - Visual Dialogue Editor for Game Developers & Writers</title>
     <meta name="title" content="Dialog Bench - Visual Dialogue Editor for Game Developers & Writers">
-    <meta name="description" content="Free online visual dialogue editor for game developers, writers, and storytellers. Create branching dialogue trees with an intuitive drag-and-drop interface. Export as JSON for Unity, Godot, and other game engines.">
-    <meta name="keywords" content="dialogue editor, dialog tree, game development tool, narrative design, branching dialogue, conversation editor, visual novel editor, interactive fiction, game writing tool, storytelling software, Unity dialogue, Godot dialogue, RPG dialogue">
+    <meta name="description"
+        content="Free online visual dialogue editor for game developers, writers, and storytellers. Create branching dialogue trees with an intuitive drag-and-drop interface. Export as JSON for Unity, Godot, and other game engines.">
+    <meta name="keywords"
+        content="dialogue editor, dialog tree, game development tool, narrative design, branching dialogue, conversation editor, visual novel editor, interactive fiction, game writing tool, storytelling software, Unity dialogue, Godot dialogue, RPG dialogue">
     <meta name="author" content="Dialog Bench">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://dialogbench.com">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dialogbench.com">
     <meta property="og:title" content="Dialog Bench - Visual Dialogue Editor for Game Developers & Writers">
-    <meta property="og:description" content="Free online visual dialogue editor for game developers, writers, and storytellers. Create branching dialogue trees with an intuitive drag-and-drop interface. Export as JSON for Unity, Godot, and other game engines.">
+    <meta property="og:description"
+        content="Free online visual dialogue editor for game developers, writers, and storytellers. Create branching dialogue trees with an intuitive drag-and-drop interface. Export as JSON for Unity, Godot, and other game engines.">
     <meta property="og:image" content="https://dialogbench.com/meta.png">
     <meta property="og:image:alt" content="Dialog Bench - Visual Dialogue Tree Editor">
     <meta property="og:site_name" content="Dialog Bench">
     <meta property="og:locale" content="en_US">
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://dialogbench.com">
     <meta property="twitter:title" content="Dialog Bench - Visual Dialogue Editor for Game Developers & Writers">
-    <meta property="twitter:description" content="Free online visual dialogue editor for game developers, writers, and storytellers. Create branching dialogue trees with an intuitive drag-and-drop interface.">
+    <meta property="twitter:description"
+        content="Free online visual dialogue editor for game developers, writers, and storytellers. Create branching dialogue trees with an intuitive drag-and-drop interface.">
     <meta property="twitter:image" content="https://dialogbench.com/meta.png">
     <meta property="twitter:image:alt" content="Dialog Bench - Visual Dialogue Tree Editor">
-    
+
     <!-- Additional SEO -->
     <meta name="application-name" content="Dialog Bench">
     <meta name="theme-color" content="#3d4f5f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Dialog Bench">
-    
+
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="favicon.png">
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
-    
+
+    <style>
+        .material-symbols-rounded {
+            font-variation-settings:
+                'FILL' 1,
+                'wght' 500,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+
     <!-- Structured Data (Schema.org) -->
     <script type="application/ld+json">
     {
@@ -92,37 +109,39 @@
     <div class="toolbar">
         <img src="./logo.svg" class="logo" />
         <button id="saveBtn" class="toolbar-btn">
-            <span class="material-icons">save</span> <span data-i18n="save_json">Salvar JSON</span>
+            <span class="material-symbols-rounded">save</span> <span data-i18n="save_json">Salvar JSON</span>
         </button>
         <button id="loadBtn" class="toolbar-btn">
-            <span class="material-icons">folder_open</span> <span data-i18n="load_json">Carregar JSON</span>
+            <span class="material-symbols-rounded">folder_open</span> <span data-i18n="load_json">Carregar JSON</span>
         </button>
         <input type="file" id="fileInput" accept=".json" style="display: none;">
         <button id="newDialogBtn" class="toolbar-btn">
-            <span class="material-icons">add</span> <span data-i18n="new_block">Novo Bloco</span>
+            <span class="material-symbols-rounded">add</span> <span data-i18n="new_block">Novo Bloco</span>
         </button>
         <div class="toolbar-divider"></div>
         <button id="zoomInBtn" class="toolbar-btn">
-            <span class="material-icons">zoom_in</span>
+            <span class="material-symbols-rounded">zoom_in</span>
         </button>
         <span id="zoomLevel" class="zoom-level">100%</span>
         <button id="zoomOutBtn" class="toolbar-btn">
-            <span class="material-icons">zoom_out</span>
+            <span class="material-symbols-rounded">zoom_out</span>
         </button>
         <button id="resetZoomBtn" class="toolbar-btn">
-            <span class="material-icons">center_focus_strong</span>
+            <span class="material-symbols-rounded">center_focus_strong</span>
         </button>
         <div class="toolbar-divider"></div>
-        <button id="snappingBtn" class="toolbar-btn toolbar-btn-icon toolbar-btn-toggle active" data-i18n-title="grid_snapping" title="Grid Snapping">
-            <span class="material-icons">grid_4x4</span>
+        <button id="snappingBtn" class="toolbar-btn toolbar-btn-icon toolbar-btn-toggle active"
+            data-i18n-title="grid_snapping" title="Grid Snapping">
+            <span class="material-symbols-rounded">grid_4x4</span>
         </button>
         <div class="toolbar-info">
             <span id="autoSaveIndicator"></span>
         </div>
         <div class="toolbar-divider"></div>
+
         <div class="language-selector">
             <button id="languageBtn" class="toolbar-btn toolbar-btn-icon">
-                <span class="material-icons">language</span>
+                <span class="material-symbols-rounded">language</span>
             </button>
             <div id="languageDropdown" class="language-dropdown">
                 <button class="language-option" data-locale="pt_br">
@@ -147,6 +166,9 @@
                 </button>
             </div>
         </div>
+        <button id="helpBtn" class="toolbar-btn toolbar-btn-icon" title="Tutorial">
+            <span class="material-symbols-rounded">info</span>
+        </button>
     </div>
 
     <div id="canvas" class="canvas">
@@ -162,14 +184,16 @@
         <div class="modal-content">
             <h3 data-i18n="add_response">Adicionar Resposta</h3>
             <label data-i18n="response_text">Texto da Resposta:</label>
-            <input type="text" id="responseText" data-i18n-placeholder="response_text_placeholder" placeholder="Digite o texto da resposta">
+            <input type="text" id="responseText" data-i18n-placeholder="response_text_placeholder"
+                placeholder="Digite o texto da resposta">
 
             <label data-i18n="color">Cor:</label>
             <input type="color" id="responseColor" value="#8B5A5A">
 
             <label data-i18n="connect_to_block">Conectar ao Bloco:</label>
             <div class="autocomplete-wrapper">
-                <input type="text" id="responseTarget" data-i18n-placeholder="search_placeholder" placeholder="Digite para buscar..." autocomplete="off">
+                <input type="text" id="responseTarget" data-i18n-placeholder="search_placeholder"
+                    placeholder="Digite para buscar..." autocomplete="off">
                 <div id="responseTargetList" class="autocomplete-list"></div>
             </div>
 
@@ -198,7 +222,8 @@
             </div>
 
             <label data-i18n="variable_name">Nome da Variável:</label>
-            <input type="text" id="customVariableName" data-i18n-placeholder="variable_name_placeholder" placeholder="Digite o nome da variável">
+            <input type="text" id="customVariableName" data-i18n-placeholder="variable_name_placeholder"
+                placeholder="Digite o nome da variável">
 
             <div id="chaveInputs">
                 <label data-i18n="value">Valor:</label>
@@ -210,7 +235,8 @@
 
             <div id="textoInputs" style="display: none;">
                 <label data-i18n="value">Valor:</label>
-                <input type="text" id="customTextoValue" data-i18n-placeholder="value_placeholder" placeholder="Digite o valor">
+                <input type="text" id="customTextoValue" data-i18n-placeholder="value_placeholder"
+                    placeholder="Digite o valor">
             </div>
 
             <label data-i18n="color">Cor:</label>
@@ -228,14 +254,16 @@
         <div class="modal-content">
             <h3 data-i18n="edit_response">Editar Resposta</h3>
             <label data-i18n="response_text">Texto da Resposta:</label>
-            <input type="text" id="editResponseText" data-i18n-placeholder="response_text_placeholder" placeholder="Digite o texto da resposta">
+            <input type="text" id="editResponseText" data-i18n-placeholder="response_text_placeholder"
+                placeholder="Digite o texto da resposta">
 
             <label data-i18n="color">Cor:</label>
             <input type="color" id="editResponseColor">
 
             <label data-i18n="connect_to_block">Conectar ao Bloco:</label>
             <div class="autocomplete-wrapper">
-                <input type="text" id="editResponseTarget" data-i18n-placeholder="search_placeholder" placeholder="Digite para buscar..." autocomplete="off">
+                <input type="text" id="editResponseTarget" data-i18n-placeholder="search_placeholder"
+                    placeholder="Digite para buscar..." autocomplete="off">
                 <div id="editResponseTargetList" class="autocomplete-list"></div>
             </div>
 
@@ -243,7 +271,7 @@
                 <button id="confirmEditResponse" class="btn-confirm" data-i18n="confirm">Confirmar</button>
                 <button id="cancelEditResponse" class="btn-cancel" data-i18n="cancel">Cancelar</button>
                 <button id="deleteResponse" class="btn-delete">
-                    <span class="material-icons">delete</span>
+                    <span class="material-symbols-rounded">delete</span>
                 </button>
             </div>
         </div>
@@ -267,7 +295,8 @@
             </div>
 
             <label data-i18n="variable_name">Nome da Variável:</label>
-            <input type="text" id="editCustomVariableName" data-i18n-placeholder="variable_name_placeholder" placeholder="Digite o nome da variável">
+            <input type="text" id="editCustomVariableName" data-i18n-placeholder="variable_name_placeholder"
+                placeholder="Digite o nome da variável">
 
             <div id="editChaveInputs">
                 <label data-i18n="value">Valor:</label>
@@ -279,7 +308,8 @@
 
             <div id="editTextoInputs" style="display: none;">
                 <label data-i18n="value">Valor:</label>
-                <input type="text" id="editCustomTextoValue" data-i18n-placeholder="value_placeholder" placeholder="Digite o valor">
+                <input type="text" id="editCustomTextoValue" data-i18n-placeholder="value_placeholder"
+                    placeholder="Digite o valor">
             </div>
 
             <label data-i18n="color">Cor:</label>
@@ -289,8 +319,130 @@
                 <button id="confirmEditCustom" class="btn-confirm" data-i18n="confirm">Confirmar</button>
                 <button id="cancelEditCustom" class="btn-cancel" data-i18n="cancel">Cancelar</button>
                 <button id="deleteCustom" class="btn-delete">
-                    <span class="material-icons">delete</span>
+                    <span class="material-symbols-rounded">delete</span>
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Tutorial -->
+    <div id="tutorialModal" class="modal">
+        <div class="modal-content tutorial-modal-content">
+            <div class="tutorial-header">
+                <h2 data-i18n="tutorial_title">Como Usar o Dialog Bench</h2>
+                <button id="closeTutorial" class="close-tutorial-btn">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+
+            <div class="tutorial-content">
+                <div class="tutorial-section">
+                    <div class="tutorial-icon">
+                        <span class="material-symbols-rounded">touch_app</span>
+                    </div>
+                    <div class="tutorial-text">
+                        <h3 data-i18n="tutorial_navigation_title">Navegação</h3>
+                        <p data-i18n="tutorial_navigation_desc">Clique e arraste no fundo para mover a área de trabalho.
+                            Use a roda do mouse ou os botões de zoom para aumentar ou diminuir o zoom.</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-section">
+                    <div class="tutorial-icon">
+                        <span class="material-symbols-rounded">add_box</span>
+                    </div>
+                    <div class="tutorial-text">
+                        <h3 data-i18n="tutorial_create_block_title">Criar Blocos</h3>
+                        <p data-i18n="tutorial_create_block_desc">Clique no botão "Novo Bloco" ou pressione <kbd>Shift +
+                                N</kbd> para criar um novo bloco de diálogo. Clique e arraste o cabeçalho do bloco para
+                            movê-lo.</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-section">
+                    <div class="tutorial-icon">
+                        <span class="material-symbols-rounded">edit</span>
+                    </div>
+                    <div class="tutorial-text">
+                        <h3 data-i18n="tutorial_edit_dialogue_title">Editar Diálogos</h3>
+                        <p data-i18n="tutorial_edit_dialogue_desc">Clique nas linhas de texto para editá-las. Use
+                            <kbd>Shift + Enter</kbd> para adicionar uma nova linha. Pressione <kbd>Backspace</kbd> em
+                            uma linha vazia para deletá-la.</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-section">
+                    <div class="tutorial-icon">
+                        <span class="material-symbols-rounded">question_answer</span>
+                    </div>
+                    <div class="tutorial-text">
+                        <h3 data-i18n="tutorial_add_responses_title">Adicionar Respostas</h3>
+                        <p data-i18n="tutorial_add_responses_desc">Clique no botão <strong>+</strong> na seção de
+                            respostas para adicionar opções de escolha. Conecte respostas a outros blocos digitando o ID
+                            do bloco de destino.</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-section">
+                    <div class="tutorial-icon">
+                        <span class="material-symbols-rounded">settings</span>
+                    </div>
+                    <div class="tutorial-text">
+                        <h3 data-i18n="tutorial_add_variables_title">Adicionar Variáveis</h3>
+                        <p data-i18n="tutorial_add_variables_desc">Clique no botão <strong>+</strong> na seção de
+                            variáveis para adicionar valores customizados. Use para armazenar estados do jogo, flags ou
+                            metadados.</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-section">
+                    <div class="tutorial-icon">
+                        <span class="material-symbols-rounded">link</span>
+                    </div>
+                    <div class="tutorial-text">
+                        <h3 data-i18n="tutorial_connections_title">Conexões</h3>
+                        <p data-i18n="tutorial_connections_desc">As conexões entre blocos são desenhadas automaticamente
+                            quando você vincula uma resposta a um bloco. As linhas mostram o fluxo de conversação.</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-section">
+                    <div class="tutorial-icon">
+                        <span class="material-symbols-rounded">save</span>
+                    </div>
+                    <div class="tutorial-text">
+                        <h3 data-i18n="tutorial_save_load_title">Salvar e Carregar</h3>
+                        <p data-i18n="tutorial_save_load_desc">Use "Salvar JSON" para exportar seu trabalho. "Carregar
+                            JSON" permite importar projetos salvos. Seu trabalho é automaticamente salvo localmente.</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-section">
+                    <div class="tutorial-icon">
+                        <span class="material-symbols-rounded">grid_4x4</span>
+                    </div>
+                    <div class="tutorial-text">
+                        <h3 data-i18n="tutorial_grid_snapping_title">Grid Snapping</h3>
+                        <p data-i18n="tutorial_grid_snapping_desc">Ative o botão de grid para alinhar blocos
+                            automaticamente em uma grade. Útil para manter sua árvore de diálogos organizada.</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-tips">
+                    <div style="display: flex; flex-direction: row; gap: 3px;">
+                        <span class="material-symbols-rounded" style="color: #e8f0f7;">lightbulb</span>
+                        <h3 data-i18n="tutorial_tips_title">Dicas</h3>
+                    </div>
+                    <ul>
+                        <li data-i18n="tutorial_tip_1">Use cores diferentes para categorizar tipos de respostas (hostil,
+                            amigável, neutro).</li>
+                        <li data-i18n="tutorial_tip_2">Mantenha IDs de blocos organizados para facilitar a conexão entre
+                            diálogos.</li>
+                        <li data-i18n="tutorial_tip_3">Copie textos usando os botões de copiar ao lado de cada elemento.
+                        </li>
+                        <li data-i18n="tutorial_tip_4">Use variáveis para marcar pontos importantes na narrativa.</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

@@ -78,6 +78,26 @@ function setupToolbar() {
         snappingBtn.classList.toggle('active', enabled);
     });
     
+    // Tutorial button
+    const helpBtn = document.getElementById('helpBtn');
+    const tutorialModal = document.getElementById('tutorialModal');
+    const closeTutorial = document.getElementById('closeTutorial');
+    
+    helpBtn.addEventListener('click', () => {
+        tutorialModal.classList.add('active');
+    });
+    
+    closeTutorial.addEventListener('click', () => {
+        tutorialModal.classList.remove('active');
+    });
+    
+    // Close tutorial when clicking outside
+    tutorialModal.addEventListener('click', (e) => {
+        if (e.target === tutorialModal) {
+            tutorialModal.classList.remove('active');
+        }
+    });
+    
     // Language selector
     const languageBtn = document.getElementById('languageBtn');
     const languageDropdown = document.getElementById('languageDropdown');
