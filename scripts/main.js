@@ -72,15 +72,15 @@ function setupToolbar() {
     // Clear board button
     const clearBtn = document.getElementById('clearBtn');
     clearBtn.addEventListener('click', async () => {
-        const confirmed = await showConfirmModal({
+        const result = await showConfirmModal({
             title: t('confirm_clear_board_title'),
-            message: t('confirm_clear_board_message'),
+            message: t('confirm_clear_board'),
             confirmText: t('confirm_clear_board_confirm'),
             cancelText: t('confirm_clear_board_cancel'),
             type: 'danger'
         });
         
-        if (confirmed) {
+        if (result.confirmed) {
             clearBoard();
             renderAll();
             applyZoom();
@@ -116,6 +116,11 @@ function setupToolbar() {
         if (e.target === tutorialModal) {
             tutorialModal.classList.remove('active');
         }
+    });
+    
+    // Prevent wheel events from propagating to canvas when modal is open
+    tutorialModal.addEventListener('wheel', (e) => {
+        e.stopPropagation();
     });
     
     // Language selector

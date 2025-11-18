@@ -29,7 +29,10 @@ export function initConfirmModal() {
  * @param {string} options.confirmText - Confirm button text (default: 'Confirm')
  * @param {string} options.cancelText - Cancel button text (default: 'Cancel')
  * @param {string} options.type - Type: 'danger', 'warning', 'info' (default: 'danger')
- * @returns {Promise<boolean>} - Resolves to true if confirmed, false if cancelled
+ * @param {Object} options.checkbox - Optional checkbox configuration
+ * @param {string} options.checkbox.label - Checkbox label text
+ * @param {boolean} options.checkbox.defaultChecked - Default checked state
+ * @returns {Promise<Object>} - Resolves to {confirmed: boolean, checkboxValue: boolean}
  */
 export function showConfirmModal(options = {}) {
     if (!modalContainer) {
@@ -41,7 +44,8 @@ export function showConfirmModal(options = {}) {
         message = t('modal_confirm_message'),
         confirmText = t('modal_confirm_text'),
         cancelText = t('modal_cancel_text'),
-        type = 'danger'
+        type = 'danger',
+        checkbox = null
     } = options;
 
     return new Promise((resolve) => {
@@ -72,6 +76,26 @@ export function showConfirmModal(options = {}) {
         const body = document.createElement('div');
         body.className = 'confirm-modal-body';
         body.textContent = message;
+        
+        // Add checkbox if provided
+        let checkboxInput = null;
+        if (checkbox) {
+            const checkboxContainer = document.createElement('div');
+            checkboxContainer.className = 'confirm-modal-checkbox';
+            
+            checkboxInput = document.createElement('input');
+            checkboxInput.type = 'checkbox';
+            checkboxInput.id = 'confirmModalCheckbox';
+            checkboxInput.checked = checkbox.defaultChecked || false;
+            
+            const checkboxLabel = document.createElement('label');
+            checkboxLabel.htmlFor = 'confirmModalCheckbox';
+            checkboxLabel.textContent = checkbox.label;
+            
+            checkboxContainer.appendChild(checkboxInput);
+            checkboxContainer.appendChild(checkboxLabel);
+            body.appendChild(checkboxContainer);
+        }
 
         const footer = document.createElement('div');
         footer.className = 'confirm-modal-footer';
@@ -84,7 +108,10 @@ export function showConfirmModal(options = {}) {
         const confirmBtn = document.createElement('button');
         confirmBtn.className = `btn-modal-confirm btn-modal-${type}`;
         confirmBtn.textContent = confirmText;
-        confirmBtn.addEventListener('click', () => closeConfirmModal(true));
+        confirmBtn.addEventListener('click', () => {
+            const checkboxValue = checkboxInput ? checkboxInput.checked : false;
+            closeConfirmModal(true, checkboxValue);
+        });
 
         footer.appendChild(cancelBtn);
         footer.appendChild(confirmBtn);
@@ -116,7 +143,7 @@ export function showConfirmModal(options = {}) {
     });
 }
 
-function closeConfirmModal(confirmed) {
+function closeConfirmModal(confirmed, checkboxValue = false) {
     if (!currentModal) return;
 
     currentModal.classList.remove('show');
@@ -127,7 +154,7 @@ function closeConfirmModal(confirmed) {
         currentModal = null;
         
         if (resolveCallback) {
-            resolveCallback(confirmed);
+            resolveCallback({ confirmed, checkboxValue });
             resolveCallback = null;
         }
     }, 200);

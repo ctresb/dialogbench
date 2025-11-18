@@ -12,6 +12,14 @@ import { renderBlock, getBlockInstanceById } from './blocks.js';
 // Selection box element
 let selectionBox = null;
 
+/**
+ * Check if any modal is currently active
+ */
+function isAnyModalActive() {
+    const modals = document.querySelectorAll('.modal.active, .confirm-modal-overlay.active');
+    return modals.length > 0;
+}
+
 export function initCanvas() {
     const { canvas } = elements;
     
@@ -125,6 +133,11 @@ export function applyZoom() {
 }
 
 function handleWheel(e) {
+    // Don't handle wheel events when any modal is active
+    if (isAnyModalActive()) {
+        return;
+    }
+    
     e.preventDefault();
     
     const dialogData = getDialogData();
@@ -162,6 +175,11 @@ let lastMoveTime = 0;
 let momentumAnimationId = null;
 
 function startCanvasDrag(e) {
+    // Don't handle drag events when any modal is active
+    if (isAnyModalActive()) {
+        return;
+    }
+    
     const { canvas } = elements;
     const dragging = getDraggingState();
     const selection = getSelectionState();

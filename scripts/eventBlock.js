@@ -4,7 +4,7 @@
  */
 
 import { Block } from './block.js';
-import { getBlock, removeBlock } from './state.js';
+import { getBlock, removeBlock, getGlobalVariable } from './state.js';
 import { updateConnections } from './connections.js';
 import { autoSave } from './storage.js';
 import { copyToClipboard } from './utils.js';
@@ -162,7 +162,7 @@ export class EventBlock extends Block {
      * Delete this block
      */
     async delete() {
-        const confirmed = await showConfirmModal({
+        const result = await showConfirmModal({
             title: t('confirm_delete_event_title'),
             message: t('confirm_delete_event'),
             confirmText: t('confirm_delete_event_confirm'),
@@ -170,7 +170,7 @@ export class EventBlock extends Block {
             type: 'danger'
         });
         
-        if (confirmed) {
+        if (result.confirmed) {
             removeBlock(this.id);
             this.remove();
             updateConnections();

@@ -122,7 +122,7 @@
             <span class="material-symbols-rounded">bolt</span> <span data-i18n="new_event">Novo Evento</span>
         </button>
         <button id="clearBtn" class="toolbar-btn toolbar-btn-danger">
-            <span class="material-symbols-rounded">delete</span> <span data-i18n="clear_board">Limpar</span>
+            <span class="material-symbols-rounded">mop</span> <span data-i18n="clear_board">Limpar</span>
         </button>
         <div class="toolbar-divider"></div>
         <button id="zoomInBtn" class="toolbar-btn">
@@ -228,8 +228,11 @@
             </div>
 
             <label data-i18n="variable_name">Nome da Variável:</label>
-            <input type="text" id="customVariableName" data-i18n-placeholder="variable_name_placeholder"
-                placeholder="Digite o nome da variável">
+            <div class="autocomplete-wrapper">
+                <input type="text" id="customVariableName" data-i18n-placeholder="variable_name_placeholder"
+                    placeholder="Digite o nome da variável" autocomplete="off">
+                <div id="customVariableNameList" class="autocomplete-list"></div>
+            </div>
 
             <div id="chaveInputs">
                 <label data-i18n="value">Valor:</label>
@@ -301,8 +304,11 @@
             </div>
 
             <label data-i18n="variable_name">Nome da Variável:</label>
-            <input type="text" id="editCustomVariableName" data-i18n-placeholder="variable_name_placeholder"
-                placeholder="Digite o nome da variável">
+            <div class="autocomplete-wrapper">
+                <input type="text" id="editCustomVariableName" data-i18n-placeholder="variable_name_placeholder"
+                    placeholder="Digite o nome da variável" autocomplete="off">
+                <div id="editCustomVariableNameList" class="autocomplete-list"></div>
+            </div>
 
             <div id="editChaveInputs">
                 <label data-i18n="value">Valor:</label>

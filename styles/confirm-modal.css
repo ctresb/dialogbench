@@ -157,3 +157,39 @@
 .btn-modal-warning:hover {
     background: linear-gradient(180deg, var(--color-warning-hover) 0%, #d8994e 100%);
 }
+
+/* Checkbox styling for confirm modal */
+.confirm-modal-checkbox {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(74, 95, 111, 0.2);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(74, 95, 111, 0.3);
+}
+
+.confirm-modal-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    cursor: pointer;
+    accent-color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.confirm-modal-checkbox label {
+    flex: 1;
+    margin: 0;
+    font-size: var(--font-size-md);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    user-select: none;
+    line-height: 1.4;
+}
+
+.confirm-modal-checkbox:hover {
+    background: rgba(74, 95, 111, 0.3);
+    border-color: rgba(74, 95, 111, 0.4);
+}

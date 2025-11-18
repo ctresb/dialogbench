@@ -7,6 +7,7 @@ import { t } from './i18n.js';
 import { copyToClipboard } from './utils.js';
 import { openAddCustomModal, editCustom } from './modals.js';
 import { autoSave } from './storage.js';
+import { getGlobalVariable } from './state.js';
 
 /**
  * Create HTML for variable section
@@ -18,9 +19,13 @@ import { autoSave } from './storage.js';
 export function createVariablesHTML(variables, blockId, sectionClass = 'custom-section') {
     return `
         <div class="${sectionClass}">
-            ${variables.map((variable, index) => `
+            ${variables.map((variable, index) => {
+                // Get color from global variable if available, otherwise use local color
+                const globalVar = getGlobalVariable(variable.name);
+                const colorToUse = globalVar ? globalVar.color : variable.color;
+                return `
                 <div class="custom-item">
-                    <button class="custom-btn" style="background: ${variable.color}">
+                    <button class="custom-btn" style="background: ${colorToUse}">
                         <span class="variable-name">${variable.name}</span>
                         <span class="variable-separator">=</span>
                         <span class="variable-value">${variable.value}</span>
@@ -34,7 +39,7 @@ export function createVariablesHTML(variables, blockId, sectionClass = 'custom-s
                         </button>
                     </div>
                 </div>
-            `).join('')}
+            `}).join('')}
         </div>
         
         <div class="add-custom-btn" data-block-id="${blockId}">+</div>

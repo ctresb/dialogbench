@@ -8,7 +8,8 @@ export const state = {
         blocks: [],
         nextId: 1,
         canvasOffset: { x: 0, y: 0 },
-        zoom: 1
+        zoom: 1,
+        globalVariables: []
     },
     
     dragging: {
@@ -94,4 +95,55 @@ export function clearSelection() {
 
 export function getEditingState() {
     return state.editing;
+}
+
+// Global Variables Management
+export function getGlobalVariables() {
+    return state.dialogData.globalVariables || [];
+}
+
+export function addGlobalVariable(variable) {
+    if (!state.dialogData.globalVariables) {
+        state.dialogData.globalVariables = [];
+    }
+    // Check if variable with same name already exists
+    const existingIndex = state.dialogData.globalVariables.findIndex(v => v.name === variable.name);
+    if (existingIndex !== -1) {
+        // Update existing variable
+        state.dialogData.globalVariables[existingIndex] = variable;
+    } else {
+        // Add new variable
+        state.dialogData.globalVariables.push(variable);
+    }
+}
+
+export function getGlobalVariable(name) {
+    if (!state.dialogData.globalVariables) {
+        return null;
+    }
+    return state.dialogData.globalVariables.find(v => v.name === name);
+}
+
+export function updateGlobalVariable(name, updates) {
+    if (!state.dialogData.globalVariables) {
+        return;
+    }
+    const variable = state.dialogData.globalVariables.find(v => v.name === name);
+    if (variable) {
+        Object.assign(variable, updates);
+    }
+}
+
+export function deleteGlobalVariable(name) {
+    if (!state.dialogData.globalVariables) {
+        return;
+    }
+    state.dialogData.globalVariables = state.dialogData.globalVariables.filter(v => v.name !== name);
+}
+
+export function variableNameExists(name) {
+    if (!state.dialogData.globalVariables) {
+        return false;
+    }
+    return state.dialogData.globalVariables.some(v => v.name === name);
 }

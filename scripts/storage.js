@@ -23,7 +23,8 @@ export function autoSave() {
     // Create a copy without zoom and canvasOffset
     const dataToSave = {
         blocks: dialogData.blocks,
-        nextId: dialogData.nextId
+        nextId: dialogData.nextId,
+        globalVariables: dialogData.globalVariables || []
     };
     localStorage.setItem('dialogData', JSON.stringify(dataToSave));
 }
@@ -37,6 +38,9 @@ export async function loadFromLocalStorage() {
         // Always initialize zoom and canvasOffset to defaults
         data.zoom = 1;
         data.canvasOffset = { x: 0, y: 0 };
+        
+        // Migrate old format to new format with global variables
+        migrateToGlobalVariables(data);
         
         setDialogData(data);
     } else {
@@ -66,6 +70,9 @@ export async function loadIntroJSON() {
         data.zoom = 1;
         data.canvasOffset = { x: 0, y: 0 };
         
+        // Migrate old format to new format with global variables
+        migrateToGlobalVariables(data);
+        
         setDialogData(data);
     } catch (error) {
         console.log('No intro file found, starting with empty board');
@@ -78,17 +85,55 @@ export function clearBoard() {
         blocks: [],
         nextId: 1,
         zoom: 1,
-        canvasOffset: { x: 0, y: 0 }
+        canvasOffset: { x: 0, y: 0 },
+        globalVariables: []
     };
     
     setDialogData(emptyData);
     localStorage.removeItem('dialogData');
 }
 
+/**
+ * Migrate old format (customValues in blocks) to new format (global variables)
+ * Variables are extracted from all blocks, duplicates removed (keeping last one)
+ */
+function migrateToGlobalVariables(data) {
+    // Initialize globalVariables if it doesn't exist
+    if (!data.globalVariables) {
+        data.globalVariables = [];
+    }
+    
+    // If globalVariables already exists and has content, skip migration
+    if (data.globalVariables.length > 0) {
+        return;
+    }
+    
+    // Collect all variables from all blocks
+    const variableMap = new Map(); // Use map to keep last occurrence of each variable name
+    
+    if (data.blocks) {
+        data.blocks.forEach(block => {
+            if (block.customValues && Array.isArray(block.customValues)) {
+                block.customValues.forEach(variable => {
+                    // Store/overwrite with last occurrence
+                    variableMap.set(variable.name, {
+                        name: variable.name,
+                        color: variable.color
+                    });
+                });
+            }
+        });
+    }
+    
+    // Convert map to array
+    data.globalVariables = Array.from(variableMap.values());
+}
+
 function saveToJSON() {
     const dialogData = getDialogData();
-    // Export only blocks and nextId, not zoom/pan state
+    // Export only blocks, nextId, and globalVariables, not zoom/pan state
     const dataToExport = {
+        globalVariables: dialogData.globalVariables || [],
         blocks: dialogData.blocks,
         nextId: dialogData.nextId
     };
@@ -116,6 +161,10 @@ function loadFromJSON(e) {
             // Initialize zoom and canvasOffset to defaults
             data.zoom = 1;
             data.canvasOffset = { x: 0, y: 0 };
+            
+            // Migrate old format to new format with global variables
+            migrateToGlobalVariables(data);
+            
             setDialogData(data);
             renderAll();
             applyZoom();

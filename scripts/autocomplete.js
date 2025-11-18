@@ -1,9 +1,9 @@
 /**
  * Autocomplete Module
- * Handles target selection autocomplete functionality
+ * Handles target selection autocomplete functionality and variable name autocomplete
  */
 
-import { getDialogData, getEditingState } from './state.js';
+import { getDialogData, getEditingState, getGlobalVariables } from './state.js';
 
 export function initAutocomplete() {
     // Response target autocomplete
@@ -86,4 +86,95 @@ function updateAutocomplete(input, listId) {
     } else {
         list.classList.remove('active');
     }
+}
+
+/**
+ * Update variable name autocomplete
+ * Shows existing global variables and "create" option
+ */
+export function updateVariableAutocomplete(input, listId, onSelect) {
+    const list = document.getElementById(listId);
+    const searchValue = input.value.toLowerCase().trim();
+    const globalVariables = getGlobalVariables();
+    
+    list.innerHTML = '';
+    
+    // Filter existing variables that match the search
+    const filteredVariables = globalVariables.filter(variable => {
+        return variable.name.toLowerCase().includes(searchValue);
+    });
+    
+    // Show filtered variables
+    if (filteredVariables.length > 0 || searchValue) {
+        filteredVariables.forEach(variable => {
+            const item = document.createElement('div');
+            item.className = 'autocomplete-item';
+            item.style.display = 'flex';
+            item.style.alignItems = 'center';
+            item.style.gap = '8px';
+            
+            const colorDot = document.createElement('div');
+            colorDot.style.width = '12px';
+            colorDot.style.height = '12px';
+            colorDot.style.borderRadius = '50%';
+            colorDot.style.backgroundColor = variable.color;
+            colorDot.style.flexShrink = '0';
+            
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = variable.name;
+            
+            item.appendChild(colorDot);
+            item.appendChild(nameSpan);
+            
+            item.addEventListener('click', () => {
+                input.value = variable.name;
+                list.classList.remove('active');
+                if (onSelect) {
+                    onSelect(variable);
+                }
+            });
+            
+            list.appendChild(item);
+        });
+        
+        // Add "Create new" option if search value is not empty and doesn't exactly match an existing variable
+        if (searchValue && !globalVariables.some(v => v.name.toLowerCase() === searchValue)) {
+            const createItem = document.createElement('div');
+            createItem.className = 'autocomplete-item autocomplete-create-item';
+            createItem.innerHTML = `
+                <span class="material-symbols-rounded" style="font-size: 18px;">add</span>
+                <span>Create "${searchValue}"</span>
+            `;
+            createItem.style.display = 'flex';
+            createItem.style.alignItems = 'center';
+            createItem.style.gap = '8px';
+            createItem.style.color = '#1cba9b';
+            createItem.style.fontWeight = 'bold';
+            
+            createItem.addEventListener('click', () => {
+                input.value = searchValue;
+                list.classList.remove('active');
+                if (onSelect) {
+                    onSelect({ name: searchValue, isNew: true });
+                }
+            });
+            
+            list.appendChild(createItem);
+        }
+        
+        list.classList.add('active');
+    } else {
+        list.classList.remove('active');
+    }
+}
+
+/**
+ * Initialize variable name autocomplete for an input
+ */
+export function initVariableAutocomplete(inputId, listId, onSelect) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    
+    input.addEventListener('input', () => updateVariableAutocomplete(input, listId, onSelect));
+    input.addEventListener('focus', () => updateVariableAutocomplete(input, listId, onSelect));
 }

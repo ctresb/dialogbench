@@ -3,13 +3,16 @@
  * Handles all modal operations and interactions
  */
 
-import { getBlock, getEditingState } from './state.js';
+import { getBlock, getEditingState, addGlobalVariable, getGlobalVariable, variableNameExists, deleteGlobalVariable, getDialogData } from './state.js';
 import { elements } from './dom.js';
-import { renderBlock } from './blocks.js';
+import { renderBlock, renderAll } from './blocks.js';
 import { updateConnections } from './connections.js';
 import { autoSave } from './storage.js';
 import { getRandomColor } from './utils.js';
 import { t } from './i18n.js';
+import { initVariableAutocomplete } from './autocomplete.js';
+import { showToast } from './toast.js';
+import { showConfirmModal } from './modal.js';
 
 export function initModals() {
     const { responseModal, customModal, editResponseModal, editCustomModal } = elements;
@@ -47,6 +50,40 @@ export function initModals() {
     const editVariableTypeRadios = document.querySelectorAll('input[name="editVariableType"]');
     editVariableTypeRadios.forEach(radio => {
         radio.addEventListener('change', toggleEditVariableInputs);
+    });
+    
+    // Initialize variable name autocomplete for add modal
+    initVariableAutocomplete('customVariableName', 'customVariableNameList', (variable) => {
+        if (variable.isNew) {
+            // New variable - keep the name, user will set color and value
+            document.getElementById('customVariableName').value = variable.name;
+        } else {
+            // Existing variable - fill in the color
+            document.getElementById('customVariableName').value = variable.name;
+            document.getElementById('customColor').value = variable.color;
+        }
+    });
+    
+    // Initialize variable name autocomplete for edit modal
+    initVariableAutocomplete('editCustomVariableName', 'editCustomVariableNameList', (variable) => {
+        if (variable.isNew) {
+            // New variable - keep the name, user will set color and value
+            document.getElementById('editCustomVariableName').value = variable.name;
+        } else {
+            // Existing variable - fill in the color
+            document.getElementById('editCustomVariableName').value = variable.name;
+            document.getElementById('editCustomColor').value = variable.color;
+        }
+    });
+    
+    // Prevent wheel events from propagating to canvas on all modals
+    const allModals = [responseModal, customModal, editResponseModal, editCustomModal, editEventModal];
+    allModals.forEach(modal => {
+        if (modal) {
+            modal.addEventListener('wheel', (e) => {
+                e.stopPropagation();
+            });
+        }
     });
 }
 
@@ -114,6 +151,12 @@ export function openAddCustomModal(blockId) {
     document.getElementById('chaveInputs').style.display = 'block';
     document.getElementById('textoInputs').style.display = 'none';
     
+    // Close the autocomplete list
+    const list = document.getElementById('customVariableNameList');
+    if (list) {
+        list.classList.remove('active');
+    }
+    
     openModal(customModal);
 }
 
@@ -154,9 +197,13 @@ export function editCustom(blockId, customIndex) {
         // Set variable type
         document.querySelector(`input[name="editVariableType"][value="${variable.type}"]`).checked = true;
         
-        // Set variable name and color
+        // Set variable name
         document.getElementById('editCustomVariableName').value = variable.name;
-        document.getElementById('editCustomColor').value = variable.color;
+        
+        // Try to get color from global variables, fallback to local color
+        const globalVar = getGlobalVariable(variable.name);
+        const colorToUse = globalVar ? globalVar.color : variable.color;
+        document.getElementById('editCustomColor').value = colorToUse;
         
         // Set value based on type
         if (variable.type === 'chave') {
@@ -182,7 +229,7 @@ function confirmAddResponse() {
     const target = document.getElementById('responseTarget').value;
     
     if (!text) {
-        alert(t('alert_response_text_required'));
+        showToast(t('alert_response_text_required'), 'warning');
         return;
     }
     
@@ -202,11 +249,11 @@ function confirmAddCustom() {
     const editing = getEditingState();
     
     const type = document.querySelector('input[name="variableType"]:checked').value;
-    const name = document.getElementById('customVariableName').value;
+    const name = document.getElementById('customVariableName').value.trim();
     const color = document.getElementById('customColor').value;
     
     if (!name) {
-        alert(t('alert_variable_name_required'));
+        showToast(t('alert_variable_name_required'), 'warning');
         return;
     }
     
@@ -216,15 +263,32 @@ function confirmAddCustom() {
     } else {
         value = document.getElementById('customTextoValue').value;
         if (!value) {
-            alert(t('alert_variable_value_required'));
+            showToast(t('alert_variable_value_required'), 'warning');
             return;
         }
     }
     
+    // Check if variable name already exists in other blocks
+    const dialogData = getDialogData();
+    const variableExistsElsewhere = dialogData.blocks.some(b => 
+        b.customValues && 
+        b.customValues.some(v => v.name === name)
+    );
+    
+    // Add or update global variable (will update if name exists)
+    addGlobalVariable({ name, color });
+    
     const block = getBlock(editing.currentEditingItem.blockId);
     if (block) {
         block.customValues.push({ type, name, value, color });
-        renderBlock(block);
+        
+        // If variable exists elsewhere, re-render all to update colors
+        if (variableExistsElsewhere) {
+            renderAll();
+        } else {
+            renderBlock(block);
+        }
+        
         autoSave();
     }
     
@@ -240,7 +304,7 @@ function confirmEditResponse() {
     const target = document.getElementById('editResponseTarget').value;
     
     if (!text) {
-        alert(t('alert_response_text_required'));
+        showToast(t('alert_response_text_required'), 'warning');
         return;
     }
     
@@ -260,11 +324,11 @@ function confirmEditCustom() {
     const editing = getEditingState();
     
     const type = document.querySelector('input[name="editVariableType"]:checked').value;
-    const name = document.getElementById('editCustomVariableName').value;
+    const name = document.getElementById('editCustomVariableName').value.trim();
     const color = document.getElementById('editCustomColor').value;
     
     if (!name) {
-        alert(t('alert_variable_name_required'));
+        showToast(t('alert_variable_name_required'), 'warning');
         return;
     }
     
@@ -274,26 +338,52 @@ function confirmEditCustom() {
     } else {
         value = document.getElementById('editCustomTextoValue').value;
         if (!value) {
-            alert(t('alert_variable_value_required'));
+            showToast(t('alert_variable_value_required'), 'warning');
             return;
         }
     }
     
     const block = getBlock(editing.currentEditingItem.blockId);
     if (block) {
+        const oldVariable = block.customValues[editing.currentEditingItem.index];
+        
+        // Add or update global variable (will update if name exists)
+        addGlobalVariable({ name, color });
+        
         block.customValues[editing.currentEditingItem.index] = { type, name, value, color };
-        renderBlock(block);
+        
+        // If the variable name exists in other blocks, re-render all blocks to update colors
+        const dialogData = getDialogData();
+        const hasMultipleOccurrences = dialogData.blocks.some(b => 
+            b.id !== block.id && 
+            b.customValues && 
+            b.customValues.some(v => v.name === name)
+        );
+        
+        if (hasMultipleOccurrences) {
+            renderAll(); // Re-render all blocks to propagate color change
+        } else {
+            renderBlock(block); // Just re-render current block
+        }
+        
         autoSave();
     }
     
     closeModal(editCustomModal);
 }
 
-function deleteResponse() {
+async function deleteResponse() {
     const { editResponseModal } = elements;
     const editing = getEditingState();
     
-    if (confirm(t('confirm_delete_response'))) {
+    const result = await showConfirmModal({
+        title: t('edit_response'),
+        message: t('confirm_delete_response'),
+        confirmText: t('delete'),
+        type: 'danger'
+    });
+    
+    if (result.confirmed) {
         const block = getBlock(editing.currentEditingItem.blockId);
         if (block) {
             block.responses.splice(editing.currentEditingItem.index, 1);
@@ -305,19 +395,59 @@ function deleteResponse() {
     }
 }
 
-function deleteCustomValue() {
+async function deleteCustomValue() {
     const { editCustomModal } = elements;
     const editing = getEditingState();
     
-    if (confirm(t('confirm_delete_custom'))) {
-        const block = getBlock(editing.currentEditingItem.blockId);
-        if (block) {
+    const block = getBlock(editing.currentEditingItem.blockId);
+    if (!block) return;
+    
+    const variable = block.customValues[editing.currentEditingItem.index];
+    if (!variable) return;
+    
+    const result = await showConfirmModal({
+        title: t('edit_variable'),
+        message: t('confirm_delete_custom'),
+        confirmText: t('delete'),
+        type: 'danger',
+        checkbox: {
+            label: t('delete_variable_globally'),
+            defaultChecked: false
+        }
+    });
+    
+    if (result.confirmed) {
+        // If checkbox is checked, delete globally from all blocks
+        if (result.checkboxValue) {
+            deleteVariableGlobally(variable.name);
+        } else {
+            // Only delete from current block
             block.customValues.splice(editing.currentEditingItem.index, 1);
             renderBlock(block);
-            autoSave();
         }
+        autoSave();
         closeModal(editCustomModal);
     }
+}
+
+/**
+ * Delete a variable globally from all blocks
+ */
+function deleteVariableGlobally(variableName) {
+    const dialogData = getDialogData();
+    
+    // Remove from global variables
+    deleteGlobalVariable(variableName);
+    
+    // Remove from all blocks
+    dialogData.blocks.forEach(block => {
+        if (block.customValues && Array.isArray(block.customValues)) {
+            block.customValues = block.customValues.filter(v => v.name !== variableName);
+        }
+    });
+    
+    // Re-render all blocks to update UI
+    renderAll();
 }
 
 function openModal(modal) {
@@ -364,7 +494,7 @@ function confirmEditEvent() {
     const target = editing.selectedTarget || document.getElementById('editEventTarget').value.trim();
     
     if (!title) {
-        alert(t('alert_event_title_required'));
+        showToast(t('alert_event_title_required'), 'warning');
         return;
     }
     

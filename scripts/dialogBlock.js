@@ -4,7 +4,7 @@
  */
 
 import { Block } from './block.js';
-import { getBlock, removeBlock } from './state.js';
+import { getBlock, removeBlock, getGlobalVariable } from './state.js';
 import { updateConnections } from './connections.js';
 import { autoSave } from './storage.js';
 import { copyToClipboard } from './utils.js';
@@ -73,9 +73,13 @@ export class DialogBlock extends Block {
             <div class="divider"></div>
             
             <div class="custom-section">
-                ${this.customValues.map((variable, index) => `
+                ${this.customValues.map((variable, index) => {
+                    // Get color from global variable if available, otherwise use local color
+                    const globalVar = getGlobalVariable(variable.name);
+                    const colorToUse = globalVar ? globalVar.color : variable.color;
+                    return `
                     <div class="custom-item">
-                        <button class="custom-btn" style="background: ${variable.color}">
+                        <button class="custom-btn" style="background: ${colorToUse}">
                             <span class="variable-name">${variable.name}</span>
                             <span class="variable-separator">=</span>
                             <span class="variable-value">${variable.value}</span>
@@ -89,7 +93,7 @@ export class DialogBlock extends Block {
                             </button>
                         </div>
                     </div>
-                `).join('')}
+                `}).join('')}
             </div>
             
             <div class="add-custom-btn" data-block-id="${this.id}">+</div>
@@ -327,7 +331,7 @@ export class DialogBlock extends Block {
      * Delete this block
      */
     async delete() {
-        const confirmed = await showConfirmModal({
+        const result = await showConfirmModal({
             title: t('confirm_delete_block_title'),
             message: t('confirm_delete_block'),
             confirmText: t('confirm_delete_block_confirm'),
@@ -335,7 +339,7 @@ export class DialogBlock extends Block {
             type: 'danger'
         });
         
-        if (confirmed) {
+        if (result.confirmed) {
             removeBlock(this.id);
             this.remove();
             updateConnections();
