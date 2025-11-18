@@ -58,6 +58,11 @@ export function addBlock(block) {
 
 export function removeBlock(blockId) {
     state.dialogData.blocks = state.dialogData.blocks.filter(b => b.id !== blockId);
+    
+    // Notify blocks module to clean up instance
+    import('./blocks.js').then(module => {
+        module.removeBlockInstance(blockId);
+    });
 }
 
 export function getNextId() {

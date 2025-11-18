@@ -7,7 +7,7 @@ import { state, getDialogData, getDraggingState, getSnappingState, getSelectionS
 import { elements } from './dom.js';
 import { updateConnections } from './connections.js';
 import { autoSave } from './storage.js';
-import { renderBlock } from './blocks.js';
+import { renderBlock, getBlockInstanceById } from './blocks.js';
 
 // Selection box element
 let selectionBox = null;
@@ -258,7 +258,8 @@ function handleMouseMove(e) {
         
         selection.selectedBlocks.forEach(blockId => {
             const block = state.dialogData.blocks.find(b => b.id === blockId);
-            if (block) {
+            const blockInstance = getBlockInstanceById(blockId);
+            if (block && blockInstance) {
                 const initial = selection.initialPositions[blockId];
                 if (initial) {
                     let newX = initial.x + (totalDx / dialogData.zoom);
@@ -272,7 +273,7 @@ function handleMouseMove(e) {
                     
                     block.x = newX;
                     block.y = newY;
-                    renderBlock(block);
+                    blockInstance.setPosition(newX, newY);
                 }
             }
         });
@@ -302,7 +303,8 @@ function handleMouseMove(e) {
         lastMoveTime = currentTime;
     } else if (dragging.isDraggingBlock && dragging.currentDragBlock) {
         const block = state.dialogData.blocks.find(b => b.id === dragging.currentDragBlock);
-        if (block) {
+        const blockInstance = getBlockInstanceById(dragging.currentDragBlock);
+        if (block && blockInstance) {
             let x = (e.clientX - dragging.blockDragOffset.x - dialogData.canvasOffset.x) / dialogData.zoom;
             let y = (e.clientY - dragging.blockDragOffset.y - dialogData.canvasOffset.y - 60) / dialogData.zoom;
             
@@ -315,8 +317,8 @@ function handleMouseMove(e) {
             
             block.x = x;
             block.y = y;
+            blockInstance.setPosition(x, y);
             
-            renderBlock(block);
             updateConnections();
             autoSave();
         }
