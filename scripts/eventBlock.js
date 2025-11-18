@@ -48,16 +48,8 @@ export class EventBlock extends Block {
                 <div class="divider"></div>
                 
                 <div class="event-connection-section">
-                    <div class="event-connection-item ${hasConnection ? 'has-connection' : ''}">
-                        <button class="event-connection-btn" data-block-id="${this.id}">
-                            <span class="material-symbols-rounded">link</span>
-                            <span class="connection-text">${targetDisplay}</span>
-                        </button>
-                        <div class="item-actions">
-                            ${createEditButton(this.id, 0, 'event-connection')}
-                            ${hasConnection ? createCopyButton(this.id, 0, 'event-connection') : ''}
-                        </div>
-                    </div>
+                    <div class="event-connection ${hasConnection ? 'has-connection' : ''}">${targetDisplay}</div>
+                    ${hasConnection ? `<div class="item-actions">${createCopyButton(this.id, 0, 'event-connection')}</div>` : ''}
                 </div>
                 
                 <div class="divider"></div>
@@ -91,23 +83,21 @@ export class EventBlock extends Block {
             });
         }
 
-        // Connection edit button
+        // Connection section - make clickable and setup copy button
         const connectionSection = this.element.querySelector('.event-connection-section');
         if (connectionSection) {
-            const editBtn = connectionSection.querySelector('.edit-btn');
-            if (editBtn) {
-                editBtn.addEventListener('click', () => {
+            // Make the connection div itself clickable to edit
+            const connectionDiv = connectionSection.querySelector('.event-connection');
+            if (connectionDiv) {
+                connectionDiv.addEventListener('click', () => {
                     openEditEventModal(this.id);
                 });
             }
             
-            // Connection copy button
-            const copyBtn = connectionSection.querySelector('.copy-btn');
-            if (copyBtn) {
-                copyBtn.addEventListener('click', () => {
-                    if (this.target) {
-                        copyToClipboard(this.target);
-                    }
+            // Copy button (only if there's a connection)
+            if (this.target) {
+                setupCopyButton(connectionSection, () => {
+                    copyToClipboard(this.target);
                 });
             }
         }
@@ -120,8 +110,12 @@ export class EventBlock extends Block {
      * Override shouldStartDrag to prevent dragging from buttons
      */
     shouldStartDrag(e) {
-        // Don't start drag if clicking on buttons
+        // Don't start drag if clicking on buttons or interactive elements
         if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+            return false;
+        }
+        // Don't drag when clicking on event connection (it opens edit modal)
+        if (e.target.classList.contains('event-connection')) {
             return false;
         }
         return e.target === this.element || 

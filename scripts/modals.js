@@ -373,9 +373,10 @@ function confirmEditEvent() {
         block.title = title;
         block.backgroundColor = color;
         block.target = target || null;
+        autoSave();
+        // Force re-render to update the UI immediately
         renderBlock(block);
         updateConnections();
-        autoSave();
     }
     
     closeModal(editEventModal);

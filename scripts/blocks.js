@@ -90,6 +90,8 @@ export function createNewEvent() {
 
 export function renderBlock(blockData) {
     const blockInstance = getBlockInstance(blockData);
+    // Update instance properties from state data before rendering
+    blockInstance.updateFromState();
     blockInstance.render();
 }
 
