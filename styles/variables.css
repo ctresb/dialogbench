@@ -80,9 +80,9 @@
     --transition-bounce: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     
     /* === Typography === */
-    --font-family-base: "Atkinson Hyperlegible Next", sans-serif;
-    --font-family-mono: 'Courier New', monospace;
-    --font-family-ui: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-family-base: "Golos Text", sans-serif;
+    --font-family-mono: "Fira Code", monospace;
+    --font-family-ui: "Golos Text", sans-serif;
     
     --font-size-xs: 12px;
     --font-size-sm: 13px;

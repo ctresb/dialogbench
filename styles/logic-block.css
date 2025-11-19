@@ -61,8 +61,10 @@
     padding: 4px 10px;
     border-radius: var(--radius-sm);
     font-weight: 600;
-    font-family: 'Courier New', monospace;
+    font-family: var(--font-family-mono);
     font-size: var(--font-size-sm);
+    font-variant-ligatures: common-ligatures;
+    font-feature-settings: "liga" 1, "calt" 1;
 }
 
 .logic-operator {
@@ -70,8 +72,10 @@
     padding: 4px 8px;
     border-radius: var(--radius-sm);
     font-weight: 700;
-    font-family: 'Courier New', monospace;
+    font-family: var(--font-family-mono);
     font-size: var(--font-size-sm);
+    font-variant-ligatures: common-ligatures;
+    font-feature-settings: "liga" 1, "calt" 1;
 }
 
 .logic-value {
@@ -79,8 +83,14 @@
     padding: 4px 10px;
     border-radius: var(--radius-sm);
     font-weight: 600;
-    font-family: 'Courier New', monospace;
+    font-family: var(--font-family-mono);
     font-size: var(--font-size-sm);
+    font-variant-ligatures: common-ligatures;
+    font-feature-settings: "liga" 1, "calt" 1;
+}
+
+.logic-text {
+    font-family: var(--font-family-mono) !important;
 }
 
 .logic-condition-section .item-actions {
