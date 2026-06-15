@@ -187,7 +187,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 </div>
 
 <p align="center">
-  <a href="https://feitonobrasil.dev.br" aria-label="Feito no Brasil">
-    <img src="https://selo.feitonobrasil.dev.br/pt-br/branco/1x.svg" alt="Feito no Brasil" width="250" height="120" loading="lazy" />
-  </a>
+  <a href="https://feitonobrasil.dev.br"><img src="https://selo.feitonobrasil.dev.br/pt-br/branco/1x.svg" alt="Feito no Brasil" height="56"></a>
 </p>
