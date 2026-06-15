@@ -185,3 +185,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   
   Star us on GitHub if you find this project useful!
 </div>
+
+<p align="center">
+  <a href="https://c3b.fun/r/dialogbench" aria-label="C3B">
+    <img src="https://img.shields.io/badge/C3B-feito%20por%20ctresb-ff5f7e?style=for-the-badge" alt="C3B" />
+  </a>
+</p>
